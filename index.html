@@ -677,38 +677,50 @@
     .hiw-section { background: linear-gradient(180deg, transparent, rgba(10,10,18,0.6), transparent); }
     .hiw-steps {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 32px;
       position: relative;
     }
     .hiw-steps::before {
       content: '';
       position: absolute;
-      top: 28px;
-      left: calc(12.5% + 28px);
-      right: calc(12.5% + 28px);
+      top: 36px;
+      left: calc(16.67% + 36px);
+      right: calc(16.67% + 36px);
       height: 1px;
-      background: linear-gradient(to right, var(--accent), var(--accent-2), var(--accent-3), transparent);
+      background: linear-gradient(to right, var(--accent), var(--accent-2), var(--accent-3));
       opacity: 0.3;
     }
     .hiw-step { text-align: center; }
-    .hiw-num {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(0,200,255,0.15), rgba(123,97,255,0.1));
-      border: 1px solid rgba(0,200,255,0.25);
+    .hiw-step-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0,200,255,0.1), rgba(139,92,246,0.08));
+      border: 1px solid rgba(0,200,255,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--accent);
       margin: 0 auto 20px;
       position: relative;
       z-index: 1;
     }
-    .hiw-step h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .hiw-step-num {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .hiw-step h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
     .hiw-step p  { font-size: 14px; color: var(--fg-muted); line-height: 1.65; }
 
     /* ─── METRICS ─── */
@@ -1800,31 +1812,35 @@
     <div class="section-header">
       <div class="tag reveal">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Simple Setup
+        How It Works
       </div>
-      <h2 class="reveal reveal-delay-1">Up and running in <span class="gradient-text">under 10 minutes</span></h2>
-      <p class="reveal reveal-delay-2">No engineers required. Connect your number, configure your preferences, and your receptionist is live.</p>
+      <h2 class="reveal reveal-delay-1">Live in <span class="gradient-text">Under 2 Weeks</span></h2>
+      <p class="reveal reveal-delay-2">From first conversation to fully live — we handle everything. No engineers, no guesswork.</p>
     </div>
     <div class="hiw-steps">
       <div class="hiw-step reveal">
-        <div class="hiw-num">1</div>
-        <h3>Book a Discovery Call</h3>
-        <p>We learn about your business, your goals, and exactly how you want your receptionist to show up for your clients.</p>
+        <div class="hiw-step-icon">
+          <span class="hiw-step-num">1</span>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="hiw1" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><path stroke="url(#hiw1)" d="M3 18v-6a9 9 0 0 1 18 0v6"/><path stroke="url(#hiw1)" d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        </div>
+        <h3>Discovery Call</h3>
+        <p>We learn your business — your services, your voice, your workflows. Everything we need to build an AI that truly represents you.</p>
       </div>
       <div class="hiw-step reveal reveal-delay-1">
-        <div class="hiw-num">2</div>
-        <h3>Complete Your Setup Form</h3>
-        <p>You'll receive a simple form to fill out covering your services, FAQs, business hours, and booking preferences. No tech skills needed.</p>
+        <div class="hiw-step-icon">
+          <span class="hiw-step-num">2</span>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="hiw2" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><path stroke="url(#hiw2)" d="M12 2a10 10 0 1 0 10 10"/><path stroke="url(#hiw2)" d="M22 2 11 13"/><path stroke="url(#hiw2)" d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+        </div>
+        <h3>Custom Build</h3>
+        <p>Your AI is trained on your specific workflows, scripts, and integrations. Fully configured by our team — done for you, not by you.</p>
       </div>
       <div class="hiw-step reveal reveal-delay-2">
-        <div class="hiw-num">3</div>
-        <h3>We Build It For You</h3>
-        <p>Our team configures your AI receptionist — voice, scripts, workflows, and integrations — fully done for you.</p>
-      </div>
-      <div class="hiw-step reveal reveal-delay-3">
-        <div class="hiw-num">4</div>
+        <div class="hiw-step-icon">
+          <span class="hiw-step-num">3</span>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="hiw3" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><path stroke="url(#hiw3)" d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline stroke="url(#hiw3)" points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
         <h3>Go Live</h3>
-        <p>Your receptionist goes live and starts answering calls, booking appointments, and delighting clients 24/7.</p>
+        <p>Every call answered from day one. Your AI receptionist is live 24/7 — booking, qualifying, and never missing a lead.</p>
       </div>
     </div>
   </div>
