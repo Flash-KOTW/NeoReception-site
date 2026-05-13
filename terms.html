@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — NeoReception.AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-deep:    #020203;
+      --bg-base:    #050507;
+      --bg-elevated:#0a0a0e;
+      --border:     rgba(255,255,255,0.08);
+      --border-hi:  rgba(255,255,255,0.14);
+      --fg:         #EDEEF2;
+      --fg-muted:   #8A8F9E;
+      --fg-subtle:  #4A4F60;
+      --accent:     #00C8FF;
+      --accent-2:   #7B61FF;
+      --radius:     16px;
+      --font:       'Plus Jakarta Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg-base);
+      color: var(--fg);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 0;
+      background: rgba(3,3,6,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 900px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 3px; text-decoration: none; }
+    .logo-img-wrap { display: inline-flex; align-items: center; line-height: 0; flex-shrink: 0; }
+    .logo-img { height: 32px; width: auto; display: block; }
+    .logo-sep { width: 1px; height: 20px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent); flex-shrink: 0; margin: 0 1px; }
+    .logo-name { display: flex; flex-direction: row; align-items: baseline; }
+    .logo-reception { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; color: rgba(210,225,245,0.75); letter-spacing: 0.1em; text-transform: uppercase; }
+    .logo-ai { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 900; color: #38BDF8; letter-spacing: 0.06em; text-transform: uppercase; }
+    .nav-back {
+      display: flex; align-items: center; gap: 6px;
+      color: var(--fg-muted); text-decoration: none; font-size: 13px; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--fg); }
+
+    /* LAYOUT */
+    .page-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    /* HEADER */
+    .doc-header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .doc-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent-2); background: rgba(123,97,255,0.08);
+      border: 1px solid rgba(123,97,255,0.2); border-radius: 999px;
+      padding: 4px 12px; margin-bottom: 16px;
+    }
+    .doc-title {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 800;
+      color: var(--fg);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .doc-meta {
+      font-size: 13px;
+      color: var(--fg-subtle);
+    }
+
+    /* CONTENT */
+    .doc-section { margin-bottom: 40px; }
+    .doc-section h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .doc-section h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--fg);
+      margin: 20px 0 8px;
+    }
+    .doc-section p {
+      font-size: 15px;
+      color: rgba(237,238,242,0.8);
+      margin-bottom: 12px;
+      line-height: 1.75;
+    }
+    .doc-section ul {
+      margin: 8px 0 12px 20px;
+    }
+    .doc-section ul li {
+      font-size: 15px;
+      color: rgba(237,238,242,0.8);
+      margin-bottom: 6px;
+      line-height: 1.7;
+    }
+    .doc-section a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .doc-section a:hover { text-decoration: underline; }
+
+    .highlight-box {
+      background: rgba(123,97,255,0.05);
+      border: 1px solid rgba(123,97,255,0.15);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: rgba(237,238,242,0.85);
+    }
+
+    /* FOOTER */
+    .doc-footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--fg-subtle);
+    }
+    .doc-footer a { color: var(--accent); text-decoration: none; }
+    .doc-footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo" aria-label="NeoReception.AI Home">
+      <span class="logo-img-wrap"><img src="Neo Logo.png" alt="NEO" class="logo-img" /></span>
+      <span class="logo-sep"></span>
+      <span class="logo-name"><span class="logo-reception">Reception</span><span class="logo-ai">.AI</span></span>
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Home
+    </a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="doc-header">
+    <div class="doc-tag">Legal</div>
+    <h1 class="doc-title">Terms of Service</h1>
+    <p class="doc-meta">Effective date: May 13, 2025 &nbsp;·&nbsp; Last updated: May 13, 2025</p>
+  </div>
+
+  <div class="doc-section">
+    <p>These Terms of Service ("Terms") govern your access to and use of NeoReception.AI's services, website, and software (collectively, the "Service"). Please read these Terms carefully before using the Service.</p>
+    <div class="highlight-box">
+      By accessing or using NeoReception.AI, you agree to be bound by these Terms. If you do not agree, you may not use the Service.
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2>1. The Service</h2>
+    <p>NeoReception.AI provides an AI-powered receptionist service that answers inbound calls, books appointments, captures leads, and handles caller inquiries on behalf of businesses ("Clients"). The Service is operated by NeoReception.AI ("Company," "we," "us," or "our").</p>
+    <p>We reserve the right to modify, suspend, or discontinue the Service at any time with reasonable notice.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>2. Eligibility</h2>
+    <p>You must be at least 18 years old and have the legal authority to enter into contracts on behalf of your business to use the Service. By using NeoReception.AI, you represent that you meet these requirements.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>3. Account &amp; Access</h2>
+    <p>You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account. Notify us immediately of any unauthorized access at <a href="mailto:Dylantucker12@yahoo.com">Dylantucker12@yahoo.com</a>.</p>
+    <p>You may not share your account with third parties or use the Service on behalf of multiple businesses without our written consent.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>4. Acceptable Use</h2>
+    <p>You agree not to use the Service to:</p>
+    <ul>
+      <li>Engage in any unlawful, deceptive, or fraudulent activity</li>
+      <li>Harass, threaten, or harm any individual</li>
+      <li>Violate any applicable federal, state, or local laws — including telemarketing, recording consent, and TCPA regulations</li>
+      <li>Impersonate any person or entity in a misleading way</li>
+      <li>Attempt to reverse engineer, hack, or disrupt the Service</li>
+      <li>Use the Service to collect data in a manner that violates privacy laws</li>
+    </ul>
+    <p>We reserve the right to terminate accounts that violate these guidelines without refund.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>5. Call Recording &amp; Compliance</h2>
+    <p>You are solely responsible for complying with all applicable laws regarding call recording in your jurisdiction and the jurisdictions of your callers. This includes, but is not limited to, providing proper disclosure to callers that their call may be recorded.</p>
+    <p>NeoReception.AI is not liable for any legal claims arising from your failure to comply with call recording laws. We strongly recommend consulting a legal professional if you are unsure of your obligations.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>6. Payment &amp; Billing</h2>
+    <p>Pricing for the Service is agreed upon between you and NeoReception.AI at the time of onboarding. All fees are:</p>
+    <ul>
+      <li>Due in advance unless otherwise agreed in writing</li>
+      <li>Non-refundable except as required by law or as stated in our refund policy</li>
+      <li>Subject to change with 30 days' written notice</li>
+    </ul>
+    <p>Failure to pay may result in suspension or termination of your Service.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>7. Intellectual Property</h2>
+    <p>All technology, software, branding, and content associated with NeoReception.AI is owned by us and protected by intellectual property laws. You are granted a limited, non-exclusive, non-transferable license to use the Service for your business purposes only.</p>
+    <p>You retain ownership of any content or data you provide to us (e.g., business scripts, FAQs). By providing this content, you grant us a license to use it solely to operate and improve the Service for your account.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>8. Disclaimer of Warranties</h2>
+    <p>The Service is provided "as is" and "as available" without warranties of any kind, either express or implied. We do not warrant that:</p>
+    <ul>
+      <li>The Service will be uninterrupted, error-free, or fully secure</li>
+      <li>The AI will handle every call perfectly or as a licensed professional would</li>
+      <li>Results such as leads captured or appointments booked will meet specific expectations</li>
+    </ul>
+    <p>NeoReception.AI is a productivity tool and does not replace licensed medical, legal, or financial advice.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>9. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by law, NeoReception.AI shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including lost profits, lost data, or business interruption, arising from your use of the Service — even if we have been advised of the possibility of such damages.</p>
+    <p>Our total liability to you for any claim arising from these Terms or your use of the Service shall not exceed the amount you paid us in the three months preceding the claim.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>10. Termination</h2>
+    <p>Either party may terminate the Service with 14 days' written notice. We may terminate or suspend your account immediately and without notice if you breach these Terms or engage in conduct that we determine, in our sole discretion, is harmful to us, other users, or third parties.</p>
+    <p>Upon termination, your access to the Service will cease and your data will be retained for 30 days before permanent deletion, unless you request earlier deletion.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>11. Governing Law</h2>
+    <p>These Terms are governed by the laws of the United States and the state in which NeoReception.AI operates, without regard to its conflict of law provisions. Any disputes shall be resolved through binding arbitration or in a court of competent jurisdiction.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>12. Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. We will notify you of material changes by email or by posting a notice on our website. Continued use of the Service after changes take effect constitutes your acceptance of the new Terms.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>13. Contact</h2>
+    <p>For questions about these Terms, contact us at:</p>
+    <ul>
+      <li>Email: <a href="mailto:Dylantucker12@yahoo.com">Dylantucker12@yahoo.com</a></li>
+      <li>Instagram: <a href="https://www.instagram.com/neoreception.ai" target="_blank">@neoreception.ai</a></li>
+    </ul>
+  </div>
+
+  <div class="doc-footer">
+    <span>© 2025 NeoReception.AI. All rights reserved.</span>
+    <a href="privacy.html">Privacy Policy →</a>
+  </div>
+
+</div>
+</body>
+</html>
