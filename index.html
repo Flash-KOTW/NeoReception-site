@@ -37,17 +37,14 @@
     .word-cycle {
       display: inline-block;
       position: relative;
-      overflow: hidden;
-      vertical-align: bottom;
-      transition: width 0.45s var(--ease);
+      min-width: 180px;
     }
     .word-cycle .word {
       position: absolute;
       left: 0;
-      bottom: 0;
+      top: 0;
       opacity: 0;
-      transform: translateY(110%);
-      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+      transition: opacity 0.55s var(--ease);
       white-space: nowrap;
       background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 60%, var(--accent-3) 100%);
       -webkit-background-clip: text;
@@ -56,11 +53,9 @@
     }
     .word-cycle .word.active {
       opacity: 1;
-      transform: translateY(0);
     }
     .word-cycle .word.leaving {
       opacity: 0;
-      transform: translateY(-110%);
     }
 
     /* ─── TRUST BADGES ─── */
@@ -1615,7 +1610,7 @@
         </div>
         <h1 class="reveal reveal-delay-1">
           Never Miss<br />
-          Another <span class="word-cycle" id="word-cycle"><span class="word active">Call.</span><span class="word">Lead.</span><span class="word">Booking.</span><span class="word">Client.</span></span>
+          Another<br><span class="word-cycle" id="word-cycle"><span class="word active">Call.</span><span class="word">Lead.</span><span class="word">Booking.</span><span class="word">Client.</span></span>
         </h1>
         <p class="hero-desc reveal reveal-delay-2">
           Your AI receptionist answers every call, books appointments, and captures leads — 24/7. No voicemail. No missed revenue.
@@ -2171,14 +2166,13 @@
     const words = wordCycle.querySelectorAll('.word');
     let current = 0;
 
-    function setSize(word) {
-      wordCycle.style.width  = word.offsetWidth  + 'px';
-      wordCycle.style.height = word.offsetHeight + 'px';
-    }
-
-    // Init size from first word (briefly make visible off-screen to measure)
-    words.forEach(w => { w.style.position = 'absolute'; });
-    setSize(words[0]);
+    // Lock container size to first word so layout never collapses
+    const first = words[0];
+    first.style.opacity = '1';
+    wordCycle.style.width  = first.offsetWidth  + 'px';
+    wordCycle.style.height = first.offsetHeight + 'px';
+    first.style.opacity = '';
+    words[0].classList.add('active');
 
     setInterval(() => {
       const prev = words[current];
@@ -2188,7 +2182,7 @@
       prev.classList.add('leaving');
       prev.classList.remove('active');
       next.classList.add('active');
-      setSize(next);
+      wordCycle.style.width = next.offsetWidth + 'px';
 
       prev.addEventListener('transitionend', () => {
         prev.classList.remove('leaving');
