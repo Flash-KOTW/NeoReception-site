@@ -35,14 +35,10 @@
 
     /* ─── WORD CYCLE ─── */
     .word-cycle {
-      display: inline-block;
-      position: relative;
-      min-width: 180px;
+      display: inline-grid;
     }
     .word-cycle .word {
-      position: absolute;
-      left: 0;
-      top: 0;
+      grid-area: 1/1;
       opacity: 0;
       transition: opacity 0.55s var(--ease);
       white-space: nowrap;
@@ -51,12 +47,8 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .word-cycle .word.active {
-      opacity: 1;
-    }
-    .word-cycle .word.leaving {
-      opacity: 0;
-    }
+    .word-cycle .word.active  { opacity: 1; }
+    .word-cycle .word.leaving { opacity: 0; }
 
     /* ─── TRUST BADGES ─── */
     .trust-badges {
@@ -2165,28 +2157,14 @@
   if (wordCycle) {
     const words = wordCycle.querySelectorAll('.word');
     let current = 0;
-
-    // Lock container size to first word so layout never collapses
-    const first = words[0];
-    first.style.opacity = '1';
-    wordCycle.style.width  = first.offsetWidth  + 'px';
-    wordCycle.style.height = first.offsetHeight + 'px';
-    first.style.opacity = '';
-    words[0].classList.add('active');
-
     setInterval(() => {
       const prev = words[current];
       current = (current + 1) % words.length;
       const next = words[current];
-
       prev.classList.add('leaving');
       prev.classList.remove('active');
       next.classList.add('active');
-      wordCycle.style.width = next.offsetWidth + 'px';
-
-      prev.addEventListener('transitionend', () => {
-        prev.classList.remove('leaving');
-      }, { once: true });
+      prev.addEventListener('transitionend', () => prev.classList.remove('leaving'), { once: true });
     }, 2600);
   }
 
