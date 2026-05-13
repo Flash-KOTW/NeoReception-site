@@ -457,30 +457,33 @@
       pointer-events: none;
     }
     /* ─── AMBIENT GLOW ─── */
+    /* ─── AMBIENT GLOW ─── */
     .orb-ambient {
       position: absolute;
       width: 380px;
       height: 380px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,80,220,0.45) 0%, rgba(0,60,180,0.25) 35%, rgba(0,40,140,0.08) 65%, transparent 80%);
+      background: radial-gradient(circle, rgba(0,70,220,0.42) 0%, rgba(0,50,180,0.22) 35%, rgba(0,30,140,0.07) 65%, transparent 80%);
       filter: blur(40px);
       animation: pulse-orb 7s ease-in-out infinite;
     }
-    /* ─── TINY BRIGHT CENTER DOT ─── */
+    /* ─── CENTER DOT ─── */
     .orb {
       position: absolute;
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #00EEFF;
-      box-shadow: 0 0 12px 4px rgba(0,220,255,0.9), 0 0 30px 8px rgba(0,150,255,0.5), 0 0 60px 16px rgba(0,100,220,0.25);
-      z-index: 2;
+      background: #38BDF8;
+      box-shadow:
+        0 0 12px 4px rgba(56,189,248,0.95),
+        0 0 30px 8px rgba(30,130,255,0.55),
+        0 0 60px 16px rgba(10,80,230,0.25);
+      z-index: 10;
       animation: pulse-orb 4s ease-in-out infinite;
-      filter: none;
     }
     @keyframes pulse-orb {
       0%,100% { opacity: 0.85; transform: scale(1); }
-      50%      { opacity: 1;    transform: scale(1.1); }
+      50%      { opacity: 1;   transform: scale(1.1); }
     }
 
     /* ─── CONCENTRIC RINGS ─── */
@@ -489,47 +492,37 @@
       border-radius: 50%;
       border: 1px solid rgba(50,110,255,0.22);
     }
-    .r1 { width:  90px; height:  90px; animation: spin 60s  linear infinite; }
-    .r2 { width: 170px; height: 170px; animation: spin 90s  linear infinite reverse; border-color: rgba(50,120,255,0.2); }
-    .r3 { width: 250px; height: 250px; animation: spin 120s linear infinite; border-color: rgba(50,120,255,0.18); }
-    .r4 { width: 330px; height: 330px; animation: spin 100s linear infinite reverse; border-color: rgba(60,100,255,0.15); }
-    .r5 { width: 410px; height: 410px; animation: spin 140s linear infinite; border-color: rgba(60,90,220,0.13); }
-    .r6 { width: 490px; height: 490px; animation: spin 115s linear infinite reverse; border-color: rgba(70,80,200,0.10); }
-    .r7 { width: 575px; height: 575px; animation: spin 170s linear infinite; border-color: rgba(80,70,190,0.08); }
+    .r1 { width:  90px; height:  90px; animation: spin 60s  linear infinite;         border-color: rgba(56,189,248,0.28); }
+    .r2 { width: 170px; height: 170px; animation: spin 90s  linear infinite reverse; border-color: rgba(50,150,255,0.22); }
+    .r3 { width: 250px; height: 250px; animation: spin 120s linear infinite;         border-color: rgba(45,130,255,0.19); }
+    .r4 { width: 330px; height: 330px; animation: spin 100s linear infinite reverse; border-color: rgba(40,110,255,0.15); }
+    .r5 { width: 410px; height: 410px; animation: spin 140s linear infinite;         border-color: rgba(35, 92,230,0.12); }
+    .r6 { width: 490px; height: 490px; animation: spin 115s linear infinite reverse; border-color: rgba(28, 76,210,0.09); }
+    .r7 { width: 575px; height: 575px; animation: spin 170s linear infinite;         border-color: rgba(22, 60,190,0.07); }
 
-    /* ─── SCATTERED DOTS ─── */
+    /* ─── GLOW DOTS ─── */
     .orb-dot {
       position: absolute;
       border-radius: 50%;
+      z-index: 5;
       animation: dot-pulse 4s ease-in-out infinite;
-      z-index: 2;
     }
-    .orb-dot.c { background: #38BDF8; box-shadow: 0 0 8px 3px rgba(56,189,248,0.8); }
-    .orb-dot.p { background: #C084FC; box-shadow: 0 0 8px 3px rgba(192,132,252,0.8); }
-    .orb-dot.w { background: #fff;    box-shadow: 0 0 10px 4px rgba(200,230,255,0.9); }
-    /* upper-left outer — white */
+    .orb-dot.c { background: #38BDF8; box-shadow: 0 0 8px 4px rgba(56,189,248,0.85), 0 0 18px 6px rgba(56,189,248,0.4); }
+    .orb-dot.p { background: #C084FC; box-shadow: 0 0 8px 4px rgba(192,132,252,0.85), 0 0 18px 6px rgba(192,132,252,0.4); }
+    .orb-dot.w { background: #e8f6ff; box-shadow: 0 0 10px 4px rgba(210,240,255,0.95), 0 0 22px 8px rgba(150,200,255,0.55); }
     .d1  { width:11px; height:11px; top:calc(50% - 230px); left:calc(50% - 150px); animation-delay:0s; }
-    /* upper-right outer — purple */
     .d2  { width: 8px; height: 8px; top:calc(50% - 190px); left:calc(50% + 200px); animation-delay:1.3s; }
-    /* mid-left large ring — blue */
     .d3  { width: 8px; height: 8px; top:calc(50% -  50px); left:calc(50% - 210px); animation-delay:0.7s; }
-    /* inner-right — small blue */
     .d4  { width: 6px; height: 6px; top:calc(50% -  35px); left:calc(50% +  95px); animation-delay:2.0s; }
-    /* inner-lower-right — purple */
     .d5  { width: 6px; height: 6px; top:calc(50% +  60px); left:calc(50% + 110px); animation-delay:0.4s; }
-    /* lower-left mid — blue */
     .d6  { width: 7px; height: 7px; top:calc(50% + 155px); left:calc(50% - 120px); animation-delay:1.7s; }
-    /* right mid-lower — blue */
     .d7  { width: 5px; height: 5px; top:calc(50% + 105px); left:calc(50% + 195px); animation-delay:0.9s; }
-    /* lower-center outer — blue */
     .d8  { width: 7px; height: 7px; top:calc(50% + 255px); left:calc(50% -  25px); animation-delay:2.5s; }
-    /* lower-right outer — purple */
     .d9  { width: 6px; height: 6px; top:calc(50% + 215px); left:calc(50% + 165px); animation-delay:1.1s; }
-    /* far right mid — small blue */
     .d10 { width: 5px; height: 5px; top:calc(50% +  20px); left:calc(50% + 255px); animation-delay:3.1s; }
     @keyframes dot-pulse {
       0%,100% { opacity: 0.55; transform: scale(1); }
-      50%      { opacity: 1;    transform: scale(1.5); }
+      50%      { opacity: 1;   transform: scale(1.5); }
     }
 
     .ai-core {
@@ -555,14 +548,28 @@
     /* ─── FLOATING CARDS ─── */
     .float-card {
       position: absolute;
-      background: rgba(10,10,14,0.85);
-      border: 1px solid var(--border-hi);
-      border-radius: var(--radius-sm);
-      backdrop-filter: blur(20px);
-      padding: 12px 16px;
+      background: linear-gradient(135deg, rgba(4,6,22,0.96) 0%, rgba(6,8,28,0.94) 100%);
+      border: 1px solid rgba(0,120,255,0.45);
+      border-radius: 14px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 13px 17px;
       font-size: 13px;
       white-space: nowrap;
-      z-index: 3;
+      z-index: 8;
+      box-shadow:
+        0 0 0 1px rgba(80,160,255,0.08),
+        0 0 18px rgba(0,100,255,0.18),
+        0 8px 32px rgba(0,0,0,0.55);
+    }
+    /* neon top-edge accent line */
+    .float-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 16px; right: 16px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(80,180,255,0.7), transparent);
+      border-radius: 1px;
     }
     .fc-call  { top: 60px;  right: 20px;  animation: fc-float 5s ease-in-out infinite; }
     .fc-msg   { bottom: 120px; left: 10px; animation: fc-float 6s ease-in-out infinite 1.5s; }
@@ -573,24 +580,24 @@
       0%,100% { transform: translateY(0px); }
       50%      { transform: translateY(-8px); }
     }
-    .fc-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-    .fc-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; animation: blink 1.5s ease-in-out infinite; }
-    .fc-dot.yellow { background: #eab308; box-shadow: 0 0 8px #eab308; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    .fc-label { font-size: 11px; font-weight: 600; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.06em; }
-    .fc-value { font-weight: 700; color: var(--fg); font-size: 15px; }
-    .fc-sub   { font-size: 11px; color: var(--fg-muted); margin-top: 2px; }
+    .fc-header { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+    .fc-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 6px 2px rgba(34,197,94,0.8); animation: blink 1.5s ease-in-out infinite; flex-shrink: 0; }
+    .fc-dot.yellow { background: #a78bfa; box-shadow: 0 0 6px 2px rgba(167,139,250,0.8); }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.45} }
+    .fc-label { font-size: 10px; font-weight: 700; color: rgba(140,180,255,0.75); text-transform: uppercase; letter-spacing: 0.1em; }
+    .fc-value { font-weight: 700; color: #f0f6ff; font-size: 14px; line-height: 1.3; }
+    .fc-sub   { font-size: 11px; color: rgba(160,190,255,0.55); margin-top: 3px; }
     .waveform {
       display: flex;
       align-items: center;
       gap: 3px;
-      height: 28px;
-      margin-top: 6px;
+      height: 26px;
+      margin-top: 8px;
     }
     .wave-bar {
       width: 3px;
       border-radius: 2px;
-      background: linear-gradient(to top, var(--accent), var(--accent-2));
+      background: linear-gradient(to top, #0ea5e9, #818cf8);
       animation: wave 1.2s ease-in-out infinite;
     }
     .wave-bar:nth-child(1){height:8px;animation-delay:0s}
@@ -604,10 +611,10 @@
       0%,100% { transform: scaleY(1); }
       50%      { transform: scaleY(0.35); }
     }
-    .stat-row { display: flex; gap: 16px; }
+    .stat-row { display: flex; gap: 20px; }
     .stat-item { text-align: center; }
-    .stat-item .n { font-size: 22px; font-weight: 800; color: var(--accent); }
-    .stat-item .l { font-size: 10px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .stat-item .n { font-size: 20px; font-weight: 800; color: #38BDF8; line-height: 1.1; }
+    .stat-item .l { font-size: 9px; color: rgba(140,180,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
 
     @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
@@ -2044,14 +2051,18 @@
         </div>
 
         <div class="float-card fc-stats">
+          <div class="fc-header">
+            <div class="fc-dot"></div>
+            <span class="fc-label">Performance</span>
+          </div>
           <div class="stat-row">
             <div class="stat-item">
-              <div class="n">98%</div>
-              <div class="l">Accuracy</div>
+              <div class="n">24/7</div>
+              <div class="l">Always On</div>
             </div>
             <div class="stat-item">
-              <div class="n" style="color:var(--accent-2)">0.8s</div>
-              <div class="l">Avg Response</div>
+              <div class="n" style="color:var(--accent-2)">0 missed</div>
+              <div class="l">Calls Today</div>
             </div>
           </div>
         </div>
