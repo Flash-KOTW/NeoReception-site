@@ -37,15 +37,17 @@
     .word-cycle {
       display: inline-block;
       position: relative;
-      min-width: 280px;
+      overflow: hidden;
+      vertical-align: bottom;
+      transition: width 0.45s var(--ease);
     }
     .word-cycle .word {
       position: absolute;
       left: 0;
-      top: 0;
+      bottom: 0;
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+      transform: translateY(110%);
+      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
       white-space: nowrap;
       background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 60%, var(--accent-3) 100%);
       -webkit-background-clip: text;
@@ -55,7 +57,10 @@
     .word-cycle .word.active {
       opacity: 1;
       transform: translateY(0);
-      position: relative;
+    }
+    .word-cycle .word.leaving {
+      opacity: 0;
+      transform: translateY(-110%);
     }
 
     /* ─── TRUST BADGES ─── */
@@ -2165,11 +2170,30 @@
   if (wordCycle) {
     const words = wordCycle.querySelectorAll('.word');
     let current = 0;
+
+    function setSize(word) {
+      wordCycle.style.width  = word.offsetWidth  + 'px';
+      wordCycle.style.height = word.offsetHeight + 'px';
+    }
+
+    // Init size from first word (briefly make visible off-screen to measure)
+    words.forEach(w => { w.style.position = 'absolute'; });
+    setSize(words[0]);
+
     setInterval(() => {
-      words[current].classList.remove('active');
+      const prev = words[current];
       current = (current + 1) % words.length;
-      words[current].classList.add('active');
-    }, 2000);
+      const next = words[current];
+
+      prev.classList.add('leaving');
+      prev.classList.remove('active');
+      next.classList.add('active');
+      setSize(next);
+
+      prev.addEventListener('transitionend', () => {
+        prev.classList.remove('leaving');
+      }, { once: true });
+    }, 2600);
   }
 
   // ── Animated counters
