@@ -6,7 +6,7 @@
   <title>NeoReception.AI — The Future of Front Desk</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -302,21 +302,22 @@
       text-decoration: none;
     }
     .logo-neo {
-      font-size: 24px;
-      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
       font-style: italic;
-      letter-spacing: -0.04em;
-      background: linear-gradient(90deg, #1E4FAF 0%, #8B5CF6 50%, #22D3EE 100%);
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #1E4FAF 0%, #8B5CF6 55%, #22D3EE 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       line-height: 1;
     }
     .logo-name {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.02em;
     }
     .nav-links {
       display: flex;
@@ -1534,14 +1535,6 @@
   </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
-  <defs>
-    <linearGradient id="icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#22D3EE"/>
-      <stop offset="100%" stop-color="#8B5CF6"/>
-    </linearGradient>
-  </defs>
-</svg>
 
 <!-- SCROLL PROGRESS -->
 <div class="scroll-progress" id="scroll-progress"></div>
@@ -1731,7 +1724,7 @@
     <div class="features-grid">
       <div class="feat-card featured reveal">
         <div class="feat-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.18 2 2 0 0 1 3.05 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="ig1" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><path stroke="url(#ig1)" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.18 2 2 0 0 1 3.05 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
         </div>
         <h3>Intelligent Call Handling</h3>
         <p>Answers every inbound call instantly with natural, context-aware conversation. Greets callers by name, understands intent, routes appropriately, and handles complex requests — all without human intervention.</p>
@@ -1742,35 +1735,35 @@
       </div>
       <div class="feat-card reveal reveal-delay-1">
         <div class="feat-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="ig2" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><rect stroke="url(#ig2)" x="3" y="4" width="18" height="18" rx="2" ry="2"/><line stroke="url(#ig2)" x1="16" y1="2" x2="16" y2="6"/><line stroke="url(#ig2)" x1="8" y1="2" x2="8" y2="6"/><line stroke="url(#ig2)" x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
         <h3>Smart Scheduling</h3>
         <p>Books, reschedules, and cancels appointments directly in your calendar. Syncs with Google Calendar, Calendly, and 40+ booking systems.</p>
       </div>
       <div class="feat-card reveal reveal-delay-2">
         <div class="feat-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="ig3" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><path stroke="url(#ig3)" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <h3>Omnichannel Messaging</h3>
         <p>Handles SMS, WhatsApp, web chat, and email in a single unified inbox. Every channel, one intelligent agent.</p>
       </div>
       <div class="feat-card reveal reveal-delay-1">
         <div class="feat-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="ig4" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><path stroke="url(#ig4)" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle stroke="url(#ig4)" cx="9" cy="7" r="4"/><path stroke="url(#ig4)" d="M23 21v-2a4 4 0 0 0-3-3.87"/><path stroke="url(#ig4)" d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <h3>Lead Qualification</h3>
         <p>Scores and qualifies every inbound lead automatically. Captures contact details, intent, and budget before routing to your sales team.</p>
       </div>
       <div class="feat-card reveal reveal-delay-2">
         <div class="feat-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="ig5" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><line stroke="url(#ig5)" x1="18" y1="20" x2="18" y2="10"/><line stroke="url(#ig5)" x1="12" y1="20" x2="12" y2="4"/><line stroke="url(#ig5)" x1="6" y1="20" x2="6" y2="14"/></svg>
         </div>
         <h3>Real-Time Analytics</h3>
         <p>Live dashboard with call volume, response times, sentiment analysis, and conversion metrics. Understand every interaction at a glance.</p>
       </div>
       <div class="feat-card reveal reveal-delay-3">
         <div class="feat-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="ig6" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><path stroke="url(#ig6)" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <h3>Enterprise-Grade Security</h3>
         <p>SOC 2 Type II, HIPAA, and GDPR compliant. End-to-end encryption on all communications with full audit logging.</p>
