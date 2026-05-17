@@ -1549,25 +1549,42 @@
     /* ─── HAMBURGER ─── */
     .hamburger {
       display: none;
-      flex-direction: column;
-      gap: 5px;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      padding: 6px;
+      padding: 4px;
       background: none;
       border: none;
       z-index: 200;
     }
-    .hamburger span {
+    .orb-icon {
       display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--fg);
-      border-radius: 2px;
-      transition: all 0.3s var(--ease);
+      transform-origin: 50% 50%;
+      filter: drop-shadow(0 0 5px rgba(0,180,255,0.45));
+      transition: filter 0.25s;
     }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .hamburger:hover .orb-icon {
+      filter: drop-shadow(0 0 10px rgba(0,200,255,0.75));
+    }
+    @keyframes orb-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .hamburger.spinning .orb-icon {
+      animation: orb-spin 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .footer-orb-wrap {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 20px;
+    }
+    .footer-orb {
+      display: block;
+      transform-origin: 50% 50%;
+      filter: drop-shadow(0 0 8px rgba(0,140,255,0.4));
+      animation: orb-spin 28s linear infinite;
+      opacity: 0.82;
+    }
 
     .mobile-menu {
       display: none;
@@ -1989,7 +2006,75 @@
         </a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
+        <svg class="orb-icon" viewBox="0 0 100 100" width="34" height="34" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="no-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2.2" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <radialGradient id="no-cg" cx="37%" cy="32%" r="68%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="22%" stop-color="#a0e0ff"/>
+              <stop offset="55%" stop-color="#4060ee"/>
+              <stop offset="100%" stop-color="#18007a"/>
+            </radialGradient>
+            <radialGradient id="no-sg" cx="35%" cy="30%" r="68%">
+              <stop offset="0%" stop-color="#e0f0ff"/>
+              <stop offset="28%" stop-color="#70b0ff"/>
+              <stop offset="62%" stop-color="#6030cc"/>
+              <stop offset="100%" stop-color="#140060"/>
+            </radialGradient>
+            <linearGradient id="no-rg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#00ccff" stop-opacity="0.9"/>
+              <stop offset="45%"  stop-color="#8840ff" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#00aaff" stop-opacity="0.9"/>
+            </linearGradient>
+            <linearGradient id="no-sk" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%"   stop-color="#4090ff" stop-opacity="0.65"/>
+              <stop offset="100%" stop-color="#7040ff" stop-opacity="0.65"/>
+            </linearGradient>
+          </defs>
+          <!-- Main ring -->
+          <circle cx="50" cy="50" r="30" stroke="url(#no-rg)" stroke-width="1.8" fill="none" filter="url(#no-glow)"/>
+          <!-- 8 Spokes -->
+          <line x1="50" y1="50" x2="50"   y2="20"   stroke="url(#no-sk)" stroke-width="1.2"/>
+          <line x1="50" y1="50" x2="71.2" y2="28.8" stroke="url(#no-sk)" stroke-width="1.2"/>
+          <line x1="50" y1="50" x2="80"   y2="50"   stroke="url(#no-sk)" stroke-width="1.2"/>
+          <line x1="50" y1="50" x2="71.2" y2="71.2" stroke="url(#no-sk)" stroke-width="1.2"/>
+          <line x1="50" y1="50" x2="50"   y2="80"   stroke="url(#no-sk)" stroke-width="1.2"/>
+          <line x1="50" y1="50" x2="28.8" y2="71.2" stroke="url(#no-sk)" stroke-width="1.2"/>
+          <line x1="50" y1="50" x2="20"   y2="50"   stroke="url(#no-sk)" stroke-width="1.2"/>
+          <line x1="50" y1="50" x2="28.8" y2="28.8" stroke="url(#no-sk)" stroke-width="1.2"/>
+          <!-- Satellite orbs (outer ring + fill + spark) -->
+          <circle cx="50"   cy="20"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
+          <circle cx="50"   cy="20"   r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
+          <circle cx="48.5" cy="18.5" r="1.8" fill="white" opacity="0.75"/>
+          <circle cx="71.2" cy="28.8" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
+          <circle cx="71.2" cy="28.8" r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
+          <circle cx="69.7" cy="27.3" r="1.8" fill="white" opacity="0.75"/>
+          <circle cx="80"   cy="50"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
+          <circle cx="80"   cy="50"   r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
+          <circle cx="78.5" cy="48.5" r="1.8" fill="white" opacity="0.75"/>
+          <circle cx="71.2" cy="71.2" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
+          <circle cx="71.2" cy="71.2" r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
+          <circle cx="69.7" cy="69.7" r="1.8" fill="white" opacity="0.75"/>
+          <circle cx="50"   cy="80"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
+          <circle cx="50"   cy="80"   r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
+          <circle cx="48.5" cy="78.5" r="1.8" fill="white" opacity="0.75"/>
+          <circle cx="28.8" cy="71.2" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
+          <circle cx="28.8" cy="71.2" r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
+          <circle cx="27.3" cy="69.7" r="1.8" fill="white" opacity="0.75"/>
+          <circle cx="20"   cy="50"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
+          <circle cx="20"   cy="50"   r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
+          <circle cx="18.5" cy="48.5" r="1.8" fill="white" opacity="0.75"/>
+          <circle cx="28.8" cy="28.8" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
+          <circle cx="28.8" cy="28.8" r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
+          <circle cx="27.3" cy="27.3" r="1.8" fill="white" opacity="0.75"/>
+          <!-- Center orb -->
+          <circle cx="50" cy="50" r="12"   fill="none" stroke="#00ddff" stroke-width="1.2" opacity="0.7"/>
+          <circle cx="50" cy="50" r="10.5" fill="url(#no-cg)" filter="url(#no-glow)"/>
+          <circle cx="47.5" cy="47.5" r="2.8" fill="white" opacity="0.8"/>
+        </svg>
       </button>
     </div>
   </div>
@@ -2557,6 +2642,73 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
+        <div class="footer-orb-wrap">
+          <svg class="footer-orb" viewBox="0 0 100 100" width="58" height="58" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="fo-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="2.5" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <radialGradient id="fo-cg" cx="37%" cy="32%" r="68%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="22%" stop-color="#a0e0ff"/>
+                <stop offset="55%" stop-color="#4060ee"/>
+                <stop offset="100%" stop-color="#18007a"/>
+              </radialGradient>
+              <radialGradient id="fo-sg" cx="35%" cy="30%" r="68%">
+                <stop offset="0%" stop-color="#e0f0ff"/>
+                <stop offset="28%" stop-color="#70b0ff"/>
+                <stop offset="62%" stop-color="#6030cc"/>
+                <stop offset="100%" stop-color="#140060"/>
+              </radialGradient>
+              <linearGradient id="fo-rg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#00ccff" stop-opacity="0.85"/>
+                <stop offset="45%"  stop-color="#8840ff" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#00aaff" stop-opacity="0.85"/>
+              </linearGradient>
+              <linearGradient id="fo-sk" x1="50%" y1="0%" x2="50%" y2="100%">
+                <stop offset="0%"   stop-color="#4090ff" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#7040ff" stop-opacity="0.6"/>
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="30" stroke="url(#fo-rg)" stroke-width="1.8" fill="none" filter="url(#fo-glow)"/>
+            <line x1="50" y1="50" x2="50"   y2="20"   stroke="url(#fo-sk)" stroke-width="1.2"/>
+            <line x1="50" y1="50" x2="71.2" y2="28.8" stroke="url(#fo-sk)" stroke-width="1.2"/>
+            <line x1="50" y1="50" x2="80"   y2="50"   stroke="url(#fo-sk)" stroke-width="1.2"/>
+            <line x1="50" y1="50" x2="71.2" y2="71.2" stroke="url(#fo-sk)" stroke-width="1.2"/>
+            <line x1="50" y1="50" x2="50"   y2="80"   stroke="url(#fo-sk)" stroke-width="1.2"/>
+            <line x1="50" y1="50" x2="28.8" y2="71.2" stroke="url(#fo-sk)" stroke-width="1.2"/>
+            <line x1="50" y1="50" x2="20"   y2="50"   stroke="url(#fo-sk)" stroke-width="1.2"/>
+            <line x1="50" y1="50" x2="28.8" y2="28.8" stroke="url(#fo-sk)" stroke-width="1.2"/>
+            <circle cx="50"   cy="20"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
+            <circle cx="50"   cy="20"   r="7.5" fill="url(#fo-sg)" filter="url(#fo-glow)"/>
+            <circle cx="48.5" cy="18.5" r="1.8" fill="white" opacity="0.75"/>
+            <circle cx="71.2" cy="28.8" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
+            <circle cx="71.2" cy="28.8" r="7.5" fill="url(#fo-sg)" filter="url(#fo-glow)"/>
+            <circle cx="69.7" cy="27.3" r="1.8" fill="white" opacity="0.75"/>
+            <circle cx="80"   cy="50"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
+            <circle cx="80"   cy="50"   r="7.5" fill="url(#fo-sg)" filter="url(#fo-glow)"/>
+            <circle cx="78.5" cy="48.5" r="1.8" fill="white" opacity="0.75"/>
+            <circle cx="71.2" cy="71.2" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
+            <circle cx="71.2" cy="71.2" r="7.5" fill="url(#fo-sg)" filter="url(#fo-glow)"/>
+            <circle cx="69.7" cy="69.7" r="1.8" fill="white" opacity="0.75"/>
+            <circle cx="50"   cy="80"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
+            <circle cx="50"   cy="80"   r="7.5" fill="url(#fo-sg)" filter="url(#fo-glow)"/>
+            <circle cx="48.5" cy="78.5" r="1.8" fill="white" opacity="0.75"/>
+            <circle cx="28.8" cy="71.2" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
+            <circle cx="28.8" cy="71.2" r="7.5" fill="url(#fo-sg)" filter="url(#fo-glow)"/>
+            <circle cx="27.3" cy="69.7" r="1.8" fill="white" opacity="0.75"/>
+            <circle cx="20"   cy="50"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
+            <circle cx="20"   cy="50"   r="7.5" fill="url(#fo-sg)" filter="url(#fo-glow)"/>
+            <circle cx="18.5" cy="48.5" r="1.8" fill="white" opacity="0.75"/>
+            <circle cx="28.8" cy="28.8" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
+            <circle cx="28.8" cy="28.8" r="7.5" fill="url(#fo-sg)" filter="url(#fo-glow)"/>
+            <circle cx="27.3" cy="27.3" r="1.8" fill="white" opacity="0.75"/>
+            <circle cx="50" cy="50" r="12"   fill="none" stroke="#00ddff" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="50" cy="50" r="10.5" fill="url(#fo-cg)" filter="url(#fo-glow)"/>
+            <circle cx="47.5" cy="47.5" r="2.8" fill="white" opacity="0.8"/>
+          </svg>
+        </div>
         <a href="#" class="logo">
           <span class="logo-img-wrap"><img src="Neo Logo.png" alt="NEO" class="logo-img" /></span>
           <span class="logo-sep"></span>
@@ -2697,6 +2849,14 @@
     hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open');
     document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    // Spin the orb icon on every click
+    const icon = hamburger.querySelector('.orb-icon');
+    if (icon) {
+      hamburger.classList.remove('spinning');
+      void hamburger.offsetWidth; // force reflow to restart animation
+      hamburger.classList.add('spinning');
+      hamburger.addEventListener('animationend', () => hamburger.classList.remove('spinning'), { once: true });
+    }
   });
 
   function closeMobileMenu() {
