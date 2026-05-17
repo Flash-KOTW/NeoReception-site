@@ -424,13 +424,14 @@
       border-radius: 50%;
       border: 2px solid var(--bg-base);
       margin-left: -8px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
       overflow: hidden;
+      flex-shrink: 0;
+    }
+    .trust-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .trust-avatar:first-child { margin-left: 0; }
     .trust-text { font-size: 13px; color: var(--fg-muted); line-height: 1.5; }
@@ -1218,12 +1219,14 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 700;
       flex-shrink: 0;
+      overflow: hidden;
+    }
+    .testi-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .testi-name { font-size: 14px; font-weight: 600; }
     .testi-role { font-size: 12px; color: var(--fg-subtle); margin-top: 2px; }
@@ -2052,11 +2055,11 @@
         </div>
         <div class="hero-trust reveal" style="margin-top:20px;">
           <div class="trust-avatars">
-            <div class="trust-avatar" style="background:linear-gradient(135deg,#667eea,#764ba2)">S</div>
-            <div class="trust-avatar" style="background:linear-gradient(135deg,#f093fb,#f5576c)">M</div>
-            <div class="trust-avatar" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">J</div>
-            <div class="trust-avatar" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">A</div>
-            <div class="trust-avatar" style="background:linear-gradient(135deg,#fa709a,#fee140)">R</div>
+            <div class="trust-avatar"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" /></div>
+            <div class="trust-avatar"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" /></div>
+            <div class="trust-avatar"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client" /></div>
+            <div class="trust-avatar"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Client" /></div>
+            <div class="trust-avatar"><img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Client" /></div>
           </div>
           <p class="trust-text">
             <strong>100+ businesses</strong> trust NeoReception.AI<br />
@@ -2432,7 +2435,7 @@
         </div>
         <p class="testi-text">"We used to miss around <strong>30% of our inbound calls</strong> after hours. Since switching to NeoReception.AI our booking rate is up 47% and our staff actually leave on time now."</p>
         <div class="testi-author">
-          <div class="testi-avatar" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">DK</div>
+          <div class="testi-avatar"><img src="https://randomuser.me/api/portraits/men/41.jpg" alt="David K." /></div>
           <div>
             <div class="testi-name">Dr. Karen Osei</div>
             <div class="testi-role">Owner, Meridian Dental Group</div>
@@ -2449,7 +2452,7 @@
         </div>
         <p class="testi-text">"Our legal intake went from 2-3 days to <strong>under 5 minutes</strong>. NeoReception qualifies leads, explains our process, and books consultations — all before I've had my morning coffee."</p>
         <div class="testi-author">
-          <div class="testi-avatar" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)">MR</div>
+          <div class="testi-avatar"><img src="https://randomuser.me/api/portraits/women/58.jpg" alt="Maria R." /></div>
           <div>
             <div class="testi-name">Marcus Reid</div>
             <div class="testi-role">Partner, Reid & Associates Law</div>
@@ -2466,7 +2469,7 @@
         </div>
         <p class="testi-text">"I run a 12-property portfolio and NeoReception handles <strong>every inquiry, viewing request, and tenant call</strong> without me lifting a finger. It's like having a full-time receptionist for a fraction of the cost."</p>
         <div class="testi-author">
-          <div class="testi-avatar" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">SL</div>
+          <div class="testi-avatar"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Sarah L." /></div>
           <div>
             <div class="testi-name">Sophie Lam</div>
             <div class="testi-role">Director, Crestview Property Group</div>
@@ -2815,44 +2818,56 @@
     let calcAnimated = false;
     const calcSection = document.getElementById('calculator');
 
-    function animateSlider(id, from, to, duration, delay, onDone) {
-      const el = document.getElementById(id);
-      setTimeout(() => {
-        el.value = from;
-        updateCalc();
-        let start = null;
-        function step(ts) {
-          if (!start) start = ts;
-          const p = Math.min((ts - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
-          el.value = from + (to - from) * eased;
-          updateSliderFill(el);
-          updateCalc();
-          if (p < 1) {
-            requestAnimationFrame(step);
-          } else {
-            el.value = to;
-            updateSliderFill(el);
-            updateCalc();
-            if (onDone) onDone();
-          }
-        }
-        requestAnimationFrame(step);
-      }, delay);
-    }
-
     const calcObserver = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && !calcAnimated) {
         calcAnimated = true;
-        // Sweep slider 1 → slider 2 → slider 3, each after the previous finishes
-        animateSlider('slider-calls', 1, 18, 1200, 300, () => {
-          animateSlider('slider-rate', 5, 45, 1100, 200, () => {
-            animateSlider('slider-price', 50, 800, 1200, 200, null);
-          });
-        });
         calcObserver.disconnect();
+
+        // Each slider has its own center, amplitude, and phase offset
+        const sliders = [
+          { id: 'slider-calls',  center: 14,  amp: 8,   phase: 0 },
+          { id: 'slider-rate',   center: 42,  amp: 14,  phase: 2.1 },
+          { id: 'slider-price',  center: 650, amp: 280, phase: 4.4 },
+        ];
+
+        const totalDuration = 5500; // ms total
+        const freq = 0.55;          // oscillations per second
+        let startTime = null;
+
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          const elapsed = ts - startTime;
+          const t = elapsed / 1000;
+
+          // Fade amplitude in (0→1 over 0.6s) then out (1→0 over last 1.2s)
+          const fadeIn  = Math.min(t / 0.6, 1);
+          const fadeOut = Math.max(0, 1 - Math.max(0, elapsed - (totalDuration - 1200)) / 1200);
+          const envelope = fadeIn * fadeOut;
+
+          sliders.forEach(({ id, center, amp, phase }) => {
+            const el = document.getElementById(id);
+            el.value = center + amp * Math.sin(2 * Math.PI * freq * t + phase) * envelope;
+            updateSliderFill(el);
+          });
+          updateCalc();
+
+          if (elapsed < totalDuration) {
+            requestAnimationFrame(step);
+          } else {
+            // Settle at center values
+            sliders.forEach(({ id, center }) => {
+              const el = document.getElementById(id);
+              el.value = center;
+              updateSliderFill(el);
+            });
+            updateCalc();
+          }
+        }
+
+        // Short delay before starting so user sees the section first
+        setTimeout(() => requestAnimationFrame(step), 400);
       }
-    }, { threshold: 0.3 });
+    }, { threshold: 0.35 });
 
     if (calcSection) calcObserver.observe(calcSection);
   });
