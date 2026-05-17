@@ -11,12 +11,12 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-deep:    #020203;
-      --bg-base:    #050507;
-      --bg-elevated:#0a0a0e;
+      --bg-deep:    #010212;
+      --bg-base:    #020318;
+      --bg-elevated:#040522;
       --bg-card:    rgba(255,255,255,0.04);
-      --border:     rgba(255,255,255,0.08);
-      --border-hi:  rgba(255,255,255,0.14);
+      --border:     rgba(0,160,255,0.12);
+      --border-hi:  rgba(0,200,255,0.22);
       --fg:         #EDEEF2;
       --fg-muted:   #8A8F9E;
       --fg-subtle:  #4A4F60;
@@ -183,7 +183,7 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(120px);
-      opacity: 0.12;
+      opacity: 0.08;
       animation: float 20s ease-in-out infinite;
     }
     .blob-1 { width: 600px; height: 600px; background: var(--accent);   top: -200px; left: -100px; animation-duration: 22s; }
@@ -686,13 +686,14 @@
       gap: 24px;
     }
     .feat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background: rgba(2,8,30,0.85);
+      border: 1px solid rgba(0,150,255,0.18);
       border-radius: var(--radius);
       padding: 32px;
       transition: all 0.3s var(--ease);
       position: relative;
       overflow: hidden;
+      backdrop-filter: blur(8px);
     }
     .feat-card::before {
       content: '';
@@ -703,9 +704,9 @@
       transition: opacity 0.3s;
     }
     .feat-card:hover {
-      border-color: rgba(0,200,255,0.25);
+      border-color: rgba(0,200,255,0.38);
       transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(0,200,255,0.06);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 30px rgba(0,150,255,0.12);
     }
     .feat-card:hover::before { opacity: 1; }
     .feat-card.featured {
@@ -1187,15 +1188,17 @@
       gap: 24px;
     }
     .testi-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background: rgba(2,8,30,0.85);
+      border: 1px solid rgba(0,150,255,0.16);
       border-radius: var(--radius);
       padding: 28px;
       transition: all 0.3s var(--ease);
+      backdrop-filter: blur(8px);
     }
     .testi-card:hover {
-      border-color: rgba(0,200,255,0.2);
+      border-color: rgba(0,200,255,0.35);
       transform: translateY(-3px);
+      box-shadow: 0 0 25px rgba(0,150,255,0.1);
     }
     .stars { display: flex; gap: 4px; margin-bottom: 16px; }
     .star {
@@ -1676,11 +1679,11 @@
     #calculator { padding: 120px 0; }
 
     .calc-card {
-      background: rgba(8, 8, 14, 0.95);
-      border: 1px solid var(--border);
+      background: rgba(2,8,30,0.9);
+      border: 1px solid rgba(0,160,255,0.2);
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 40px 80px rgba(0,0,0,0.5);
+      box-shadow: 0 0 0 1px rgba(0,150,255,0.06), 0 24px 80px rgba(0,0,0,0.5), 0 0 60px rgba(0,100,255,0.06);
     }
 
     /* Two-panel layout */
@@ -1783,6 +1786,7 @@
       border-radius: 3px;
       outline: none;
       cursor: pointer;
+      will-change: background;
       background: linear-gradient(
         to right,
         #00C8FF 0%,
@@ -1798,7 +1802,8 @@
       border-radius: 50%;
       background: #fff;
       box-shadow: 0 0 0 3px rgba(0,200,255,0.3), 0 2px 8px rgba(0,0,0,0.5);
-      transition: box-shadow 0.15s, transform 0.15s;
+      transition: box-shadow 0.2s, transform 0.2s;
+      will-change: transform;
       cursor: pointer;
     }
     input[type="range"].calc-slider::-moz-range-thumb {
@@ -1819,156 +1824,139 @@
 
     /* ── Right: Results ── */
     .calc-output {
-      padding: 36px 32px;
-      background: linear-gradient(180deg, rgba(30, 6, 6, 0.7) 0%, rgba(16, 4, 4, 0.9) 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
+      padding: 32px 28px;
+      background: linear-gradient(160deg, rgba(0,5,28,0.97) 0%, rgba(2,8,40,0.99) 100%);
+      border-left: 1px solid rgba(0,160,255,0.2);
+      display: flex; flex-direction: column; gap: 22px;
+      position: relative; overflow: hidden;
     }
     .calc-output::before {
-      content: '';
-      position: absolute;
-      top: -60px; left: 50%;
-      transform: translateX(-50%);
-      width: 280px; height: 280px;
-      background: radial-gradient(circle, rgba(255,50,50,0.14) 0%, transparent 70%);
-      pointer-events: none;
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,200,255,0.7), rgba(120,80,255,0.5), transparent);
     }
+
+    /* HUD header */
+    .co-header { display: flex; align-items: center; justify-content: space-between; }
+    .co-live { display: flex; align-items: center; gap: 7px; }
+    .co-live-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #00ff88; box-shadow: 0 0 8px #00ff88, 0 0 16px rgba(0,255,136,0.4);
+      animation: live-pulse 2s ease-in-out infinite;
+    }
+    @keyframes live-pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.5; transform:scale(0.75); }
+    }
+    .co-live-text { font-size:10px; font-weight:700; letter-spacing:0.15em; color:#00ff88; }
+    .co-header-label { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(0,200,255,0.55); }
 
     /* Period tabs */
     .calc-period-tabs {
-      display: flex;
-      gap: 3px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 12px;
-      padding: 4px;
-      width: 100%;
-      margin-bottom: 28px;
-      position: relative;
-      z-index: 1;
+      display: flex; gap: 3px;
+      background: rgba(0,150,255,0.04);
+      border: 1px solid rgba(0,150,255,0.14);
+      border-radius: 10px; padding: 3px;
+      position: relative; z-index: 1;
     }
     .calc-period-tab {
-      flex: 1;
-      padding: 8px 4px;
-      border-radius: 9px;
-      border: none;
-      background: transparent;
-      font-family: var(--font);
-      font-size: 11.5px;
-      font-weight: 600;
-      color: rgba(255,150,150,0.45);
-      cursor: pointer;
-      transition: all 0.2s var(--ease);
-      text-align: center;
-      letter-spacing: 0.02em;
+      flex: 1; padding: 7px 4px; border-radius: 8px; border: none;
+      background: transparent; font-family: var(--font);
+      font-size: 11px; font-weight: 600;
+      color: rgba(0,180,255,0.38); cursor: pointer;
+      transition: all 0.2s; text-align: center; letter-spacing: 0.02em;
     }
-    .calc-period-tab:hover { color: rgba(255,150,150,0.75); }
+    .calc-period-tab:hover { color: rgba(0,200,255,0.7); }
     .calc-period-tab.active {
-      background: rgba(255,60,60,0.14);
-      color: #ff8080;
-      box-shadow: inset 0 0 0 1px rgba(255,80,80,0.25);
-    }
-    .calc-period-tab:focus-visible { outline: 2px solid rgba(255,100,100,0.5); outline-offset: 2px; }
-
-    /* Loss hero */
-    .calc-loss-display {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 16px 0 20px;
-      position: relative;
-      z-index: 1;
-      width: 100%;
-    }
-    .calc-big-loss-label {
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,110,110,0.6);
-      margin-bottom: 10px;
-    }
-    .calc-big-loss-num {
-      font-size: 58px;
-      font-weight: 800;
-      line-height: 1;
-      color: #ff6b6b;
-      font-variant-numeric: tabular-nums;
-      text-shadow: 0 0 48px rgba(255,60,60,0.55), 0 0 100px rgba(255,40,40,0.2);
-    }
-    .calc-big-loss-period {
-      font-size: 13px;
-      color: rgba(255,107,107,0.5);
-      margin-top: 8px;
-      font-weight: 500;
+      background: rgba(0,180,255,0.12); color: #00C8FF;
+      box-shadow: inset 0 0 0 1px rgba(0,200,255,0.32);
     }
 
-    /* Breakdown mini-cards */
-    .calc-breakdown {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      width: 100%;
-      margin: 20px 0 24px;
-      position: relative;
-      z-index: 1;
+    /* Number display */
+    .co-num-wrap {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; text-align: center; position: relative;
+      padding: 8px 0;
     }
-    .calc-metric-card {
-      padding: 13px 8px;
-      background: rgba(255,50,50,0.06);
-      border: 1px solid rgba(255,60,60,0.12);
-      border-radius: 12px;
-      text-align: center;
+    .co-num-glow {
+      position: absolute; width: 260px; height: 130px;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      background: radial-gradient(ellipse, rgba(0,180,255,0.13) 0%, transparent 70%);
+      pointer-events: none; border-radius: 50%;
+      animation: co-glow-pulse 3.5s ease-in-out infinite;
     }
-    .calc-metric-val {
-      font-size: 14px;
-      font-weight: 700;
-      color: rgba(255,140,140,0.85);
+    @keyframes co-glow-pulse {
+      0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.7; }
+      50% { transform:translate(-50%,-50%) scale(1.12); opacity:1; }
+    }
+    .co-num-display {
+      display: flex; align-items: flex-start; justify-content: center;
+      position: relative; z-index: 1; line-height: 1;
+    }
+    .co-currency {
+      font-size: 26px; font-weight: 700;
+      color: rgba(0,200,255,0.55);
+      margin-top: 12px; margin-right: 3px;
       font-variant-numeric: tabular-nums;
     }
-    .calc-metric-label {
-      font-size: 10px;
-      font-weight: 600;
-      color: rgba(255,107,107,0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin-top: 3px;
+    .co-amount {
+      font-size: 66px; font-weight: 800;
+      color: #eaf5ff; line-height: 1;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 30px rgba(0,200,255,0.5), 0 0 60px rgba(0,150,255,0.2);
+    }
+    .co-period-text {
+      font-size: 12px; color: rgba(0,200,255,0.4);
+      margin-top: 10px; font-weight: 500; letter-spacing: 0.04em;
+      position: relative; z-index: 1;
     }
 
-    /* CTA row */
-    .calc-cta-area {
-      width: 100%;
-      position: relative;
-      z-index: 1;
+    /* Stats row */
+    .co-stats {
+      display: flex; align-items: center;
+      background: rgba(0,100,200,0.06);
+      border: 1px solid rgba(0,160,255,0.16);
+      border-radius: 12px; padding: 16px 12px;
     }
+    .co-stat { flex: 1; text-align: center; }
+    .co-stat-val {
+      font-size: 15px; font-weight: 700; color: #eaf5ff;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 14px rgba(0,200,255,0.3);
+    }
+    .co-stat-lbl {
+      font-size: 10px; font-weight: 600;
+      color: rgba(0,180,255,0.42); text-transform: uppercase;
+      letter-spacing: 0.08em; margin-top: 4px;
+    }
+    .co-stat-div {
+      width: 1px; height: 36px;
+      background: rgba(0,160,255,0.15);
+    }
+
+    /* CTA area */
+    .calc-cta-area { position: relative; z-index: 1; }
     .calc-cta-note {
-      font-size: 12px;
-      color: var(--fg-muted);
-      text-align: center;
-      line-height: 1.55;
-      margin-top: 14px;
+      font-size: 12px; color: var(--fg-muted); text-align: center;
+      line-height: 1.55; margin-top: 14px;
     }
     .calc-cta-note strong { color: var(--fg); }
 
     @media (max-width: 900px) {
       .calc-layout { grid-template-columns: 1fr; }
       .calc-inputs { border-right: none; border-bottom: 1px solid var(--border); padding: 32px 24px; }
-      .calc-output { padding: 32px 24px; }
-      .calc-big-loss-num { font-size: 44px; }
-      .calc-breakdown { grid-template-columns: repeat(3, 1fr); }
+      .calc-output { padding: 28px 20px; border-left: none; border-top: 1px solid rgba(0,160,255,0.2); }
+      .co-amount { font-size: 50px; }
+      .co-currency { font-size: 22px; margin-top: 8px; }
     }
     @media (max-width: 480px) {
-      .calc-big-loss-num { font-size: 36px; }
+      .co-amount { font-size: 42px; }
     }
   </style>
 </head>
 <body>
+
+<canvas id="site-bg-canvas" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
 
 <!-- SCROLL PROGRESS -->
 <div class="scroll-progress" id="scroll-progress"></div>
@@ -2365,6 +2353,13 @@
 
         <!-- ── Right: Results ── -->
         <div class="calc-output">
+          <div class="co-header">
+            <div class="co-live">
+              <span class="co-live-dot"></span>
+              <span class="co-live-text">LIVE</span>
+            </div>
+            <span class="co-header-label">Revenue at Risk</span>
+          </div>
 
           <div class="calc-period-tabs" role="tablist" aria-label="Time period">
             <button class="calc-period-tab" data-period="daily"    role="tab" onclick="setPeriod('daily')">Daily</button>
@@ -2373,24 +2368,29 @@
             <button class="calc-period-tab" data-period="annually" role="tab" onclick="setPeriod('annually')">Annually</button>
           </div>
 
-          <div class="calc-loss-display">
-            <div class="calc-big-loss-label" id="loss-label">💸 Monthly Loss</div>
-            <div class="calc-big-loss-num" id="result-hero">$0</div>
-            <div class="calc-big-loss-period" id="loss-period">left on the table every month</div>
+          <div class="co-num-wrap">
+            <div class="co-num-glow"></div>
+            <div class="co-num-display">
+              <span class="co-currency">$</span>
+              <span class="co-amount" id="result-hero">0</span>
+            </div>
+            <div class="co-period-text" id="loss-period">left on the table every month</div>
           </div>
 
-          <div class="calc-breakdown">
-            <div class="calc-metric-card">
-              <div class="calc-metric-val" id="result-daily">$0</div>
-              <div class="calc-metric-label">Daily</div>
+          <div class="co-stats">
+            <div class="co-stat">
+              <div class="co-stat-val" id="result-daily">$0</div>
+              <div class="co-stat-lbl">Daily</div>
             </div>
-            <div class="calc-metric-card">
-              <div class="calc-metric-val" id="result-monthly">$0</div>
-              <div class="calc-metric-label">Monthly</div>
+            <div class="co-stat-div"></div>
+            <div class="co-stat">
+              <div class="co-stat-val" id="result-monthly">$0</div>
+              <div class="co-stat-lbl">Monthly</div>
             </div>
-            <div class="calc-metric-card">
-              <div class="calc-metric-val" id="result-yearly">$0</div>
-              <div class="calc-metric-label">Annually</div>
+            <div class="co-stat-div"></div>
+            <div class="co-stat">
+              <div class="co-stat-val" id="result-yearly">$0</div>
+              <div class="co-stat-lbl">Annually</div>
             </div>
           </div>
 
@@ -2402,7 +2402,6 @@
             <p class="calc-cta-note">NeoReception.AI answers <strong>every call, 24/7</strong> — so none of that revenue walks out the door.</p>
           </div>
 
-          <!-- hidden for JS -->
           <span id="result-daily-cust" style="display:none">0</span>
           <span id="result-weekly"     style="display:none">$0</span>
         </div>
@@ -2719,16 +2718,22 @@
   let calcValues = { daily: 0, weekly: 0, monthly: 0, annually: 0 };
 
   const periodMeta = {
-    daily:    { label: '💸 Daily Loss',    period: 'lost every day',    key: 'daily' },
-    weekly:   { label: '💸 Weekly Loss',   period: 'lost every week',   key: 'weekly' },
-    monthly:  { label: '💸 Monthly Loss',  period: 'left on the table every month', key: 'monthly' },
-    annually: { label: '💸 Annual Loss',   period: 'walking out the door each year', key: 'annually' },
+    daily:    { label: 'Daily Loss',    period: 'lost every day',    key: 'daily' },
+    weekly:   { label: 'Weekly Loss',   period: 'lost every week',   key: 'weekly' },
+    monthly:  { label: 'Monthly Loss',  period: 'left on the table every month', key: 'monthly' },
+    annually: { label: 'Annual Loss',   period: 'walking out the door each year', key: 'annually' },
   };
 
   function formatCurrency(n) {
     if (n >= 1000000) return '$' + (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
     if (n >= 10000)   return '$' + (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
     return '$' + n.toLocaleString();
+  }
+  // Hero number shown without '$' (currency symbol lives in the HTML span)
+  function formatHero(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 10000)   return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    return n.toLocaleString();
   }
 
   function updateSliderFill(slider) {
@@ -2745,9 +2750,8 @@
     document.querySelectorAll('.calc-period-tab').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.period === period);
     });
-    // Update label + period text
+    // Update period text
     const meta = periodMeta[period];
-    document.getElementById('loss-label').textContent  = meta.label;
     document.getElementById('loss-period').textContent = meta.period;
     // Animate to the new value
     animateValue('result-hero', calcValues[period]);
@@ -2793,7 +2797,12 @@
   function animateValue(id, target) {
     const el = document.getElementById(id);
     cancelAnimationFrame(animFrame);
-    const start = parseFloat((el.textContent || '0').replace(/[^0-9.KM$,]/g, '')) || 0;
+    // Parse back a plain number from the hero display (digits-only, may have K/M suffix)
+    const raw = el.textContent || '0';
+    let start = 0;
+    if (raw.includes('M'))      start = parseFloat(raw) * 1000000;
+    else if (raw.includes('K')) start = parseFloat(raw) * 1000;
+    else                        start = parseFloat(raw.replace(/[^0-9.]/g, '')) || 0;
     const duration = 380;
     const startTime = performance.now();
     function step(now) {
@@ -2801,7 +2810,7 @@
       const progress = Math.min(elapsed / duration, 1);
       const ease     = 1 - Math.pow(1 - progress, 3);
       const current  = Math.round(start + (target - start) * ease);
-      el.textContent = formatCurrency(current);
+      el.textContent = formatHero(current);
       if (progress < 1) animFrame = requestAnimationFrame(step);
     }
     animFrame = requestAnimationFrame(step);
@@ -2823,54 +2832,106 @@
         calcAnimated = true;
         calcObserver.disconnect();
 
-        // Each slider has its own center, amplitude, and phase offset
+        // Each slider: where it rests, how far it sweeps, and how long
         const sliders = [
-          { id: 'slider-calls',  center: 14,  amp: 8,   phase: 0 },
-          { id: 'slider-rate',   center: 42,  amp: 14,  phase: 2.1 },
-          { id: 'slider-price',  center: 650, amp: 280, phase: 4.4 },
+          { id: 'slider-calls',  rest: 5,   peak: 22,   ms: 1600 },
+          { id: 'slider-rate',   rest: 30,  peak: 70,   ms: 2000 },
+          { id: 'slider-price',  rest: 200, peak: 1800, ms: 2500 },
         ];
 
-        const totalDuration = 5500; // ms total
-        const freq = 0.55;          // oscillations per second
-        let startTime = null;
-
-        function step(ts) {
-          if (!startTime) startTime = ts;
-          const elapsed = ts - startTime;
-          const t = elapsed / 1000;
-
-          // Fade amplitude in (0→1 over 0.6s) then out (1→0 over last 1.2s)
-          const fadeIn  = Math.min(t / 0.6, 1);
-          const fadeOut = Math.max(0, 1 - Math.max(0, elapsed - (totalDuration - 1200)) / 1200);
-          const envelope = fadeIn * fadeOut;
-
-          sliders.forEach(({ id, center, amp, phase }) => {
-            const el = document.getElementById(id);
-            el.value = center + amp * Math.sin(2 * Math.PI * freq * t + phase) * envelope;
-            updateSliderFill(el);
-          });
-          updateCalc();
-
-          if (elapsed < totalDuration) {
-            requestAnimationFrame(step);
-          } else {
-            // Settle at center values
-            sliders.forEach(({ id, center }) => {
-              const el = document.getElementById(id);
-              el.value = center;
+        function runSlider({ id, rest, peak, ms }) {
+          const el = document.getElementById(id);
+          el.value = rest;
+          updateSliderFill(el);
+          return new Promise(resolve => {
+            let t0 = null;
+            function tick(ts) {
+              if (!t0) t0 = ts;
+              const p = Math.min((ts - t0) / ms, 1);
+              // ease-in-out so it accelerates away and decelerates back
+              const eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+              // half-sine arc: 0 → 1 → 0, giving one smooth down-and-back sweep
+              const arc = Math.sin(Math.PI * eased);
+              el.value = rest + (peak - rest) * arc;
               updateSliderFill(el);
-            });
-            updateCalc();
-          }
+              if (p < 1) {
+                requestAnimationFrame(tick);
+              } else {
+                el.value = rest;
+                updateSliderFill(el);
+                resolve();
+              }
+            }
+            requestAnimationFrame(tick);
+          });
         }
 
-        // Short delay before starting so user sees the section first
-        setTimeout(() => requestAnimationFrame(step), 400);
+        // Short pause so user sees the section first, then sweep all three simultaneously
+        setTimeout(() => {
+          Promise.all(sliders.map(runSlider)).then(() => updateCalc());
+        }, 500);
       }
     }, { threshold: 0.35 });
 
     if (calcSection) calcObserver.observe(calcSection);
   });
+
+  // === Animated Background Canvas ===
+  (function () {
+    const canvas = document.getElementById('site-bg-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    // Stars
+    const stars = Array.from({ length: 110 }, () => ({
+      x: Math.random(), y: Math.random(),
+      r: Math.random() * 1.0 + 0.2,
+      a: Math.random() * 0.35 + 0.08,
+    }));
+
+    // Wide diagonal light beams
+    const beams = [
+      { xFrac: 0.18, speed: 0.38, w: 380, rgb: [70, 35, 210], baseA: 0.11 },
+      { xFrac: 0.52, speed: 0.22, w: 260, rgb: [0, 110, 255], baseA: 0.08 },
+      { xFrac: 0.82, speed: 0.30, w: 220, rgb: [90, 40, 220], baseA: 0.07 },
+    ];
+
+    let t = 0;
+    function frame() {
+      t += 0.004;
+      ctx.clearRect(0, 0, W, H);
+
+      beams.forEach((b, i) => {
+        const x = (b.xFrac + Math.sin(t * b.speed + i * 2.1) * 0.05) * W;
+        const a = b.baseA + Math.sin(t * b.speed * 1.4 + i) * 0.025;
+        ctx.save();
+        ctx.translate(x, H * 0.5);
+        ctx.rotate(-0.64); // ~-37°
+        const grad = ctx.createLinearGradient(-b.w, 0, b.w, 0);
+        const [r, g, bl] = b.rgb;
+        grad.addColorStop(0, `rgba(${r},${g},${bl},0)`);
+        grad.addColorStop(0.5, `rgba(${r},${g},${bl},${a})`);
+        grad.addColorStop(1, `rgba(${r},${g},${bl},0)`);
+        ctx.fillStyle = grad;
+        ctx.fillRect(-b.w, -H * 2, b.w * 2, H * 4);
+        ctx.restore();
+      });
+
+      stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(170,210,255,${s.a})`;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
 </script>
 </body>
 </html>
