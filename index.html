@@ -2810,6 +2810,51 @@
       updateSliderFill(document.getElementById(id));
     });
     updateCalc();
+
+    // ── Slider intro animation on first scroll into view ──
+    let calcAnimated = false;
+    const calcSection = document.getElementById('calculator');
+
+    function animateSlider(id, from, to, duration, delay, onDone) {
+      const el = document.getElementById(id);
+      setTimeout(() => {
+        el.value = from;
+        updateCalc();
+        let start = null;
+        function step(ts) {
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+          el.value = from + (to - from) * eased;
+          updateSliderFill(el);
+          updateCalc();
+          if (p < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.value = to;
+            updateSliderFill(el);
+            updateCalc();
+            if (onDone) onDone();
+          }
+        }
+        requestAnimationFrame(step);
+      }, delay);
+    }
+
+    const calcObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !calcAnimated) {
+        calcAnimated = true;
+        // Sweep slider 1 → slider 2 → slider 3, each after the previous finishes
+        animateSlider('slider-calls', 1, 18, 1200, 300, () => {
+          animateSlider('slider-rate', 5, 45, 1100, 200, () => {
+            animateSlider('slider-price', 50, 800, 1200, 200, null);
+          });
+        });
+        calcObserver.disconnect();
+      }
+    }, { threshold: 0.3 });
+
+    if (calcSection) calcObserver.observe(calcSection);
   });
 </script>
 </body>
