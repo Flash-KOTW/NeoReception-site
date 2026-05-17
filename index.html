@@ -2820,6 +2820,22 @@
   const orbDropdown = document.getElementById('orb-dropdown');
   const navInnerEl = document.getElementById('nav-inner');
 
+  // Start expanded on desktop, collapse into orb on scroll
+  if (window.innerWidth > 768) {
+    navInnerEl.classList.add('nav-open');
+  }
+  let scrollCollapsed = false;
+  window.addEventListener('scroll', () => {
+    if (window.innerWidth <= 768) return;
+    if (!scrollCollapsed && window.scrollY > 60) {
+      navInnerEl.classList.remove('nav-open');
+      scrollCollapsed = true;
+    } else if (scrollCollapsed && window.scrollY === 0) {
+      navInnerEl.classList.add('nav-open');
+      scrollCollapsed = false;
+    }
+  }, { passive: true });
+
   hamburger.addEventListener('click', (e) => {
     e.stopPropagation();
     const isMobile = window.innerWidth <= 768;
