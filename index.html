@@ -1877,12 +1877,16 @@
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 6px;
-      border-radius: 6px;
+      height: 20px;        /* tall enough to contain thumb — centers it */
+      background: transparent;
       outline: none;
       cursor: pointer;
-      will-change: background;
-      transition: background 0.05s linear;
+      padding: 0;
+      margin: 0;
+    }
+    input[type="range"].calc-slider::-webkit-slider-runnable-track {
+      height: 6px;
+      border-radius: 6px;
       background: linear-gradient(
         to right,
         #00C8FF 0%,
@@ -1891,40 +1895,49 @@
         rgba(255,255,255,0.08) 100%
       );
     }
-    input[type="range"].calc-slider::-webkit-slider-runnable-track {
-      height: 6px;
-      border-radius: 6px;
-    }
     input[type="range"].calc-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      background: radial-gradient(circle at 38% 35%, #fff 0%, #c8f0ff 60%, #80d0ff 100%);
-      box-shadow: 0 0 0 3px rgba(0,200,255,0.25), 0 0 14px rgba(0,180,255,0.5), 0 2px 8px rgba(0,0,0,0.5);
-      transition: box-shadow 0.2s, transform 0.15s;
-      will-change: transform;
+      background: #ffffff;
+      border: 2.5px solid #00C8FF;
+      box-shadow: none;
       cursor: grab;
+      margin-top: -7px;   /* (6px track - 20px thumb) / 2 = -7px */
+      transition: transform 0.15s, border-color 0.15s;
     }
     input[type="range"].calc-slider:active::-webkit-slider-thumb {
       cursor: grabbing;
-      transform: scale(1.15);
-      box-shadow: 0 0 0 5px rgba(0,200,255,0.2), 0 0 22px rgba(0,180,255,0.7), 0 2px 12px rgba(0,0,0,0.6);
-    }
-    input[type="range"].calc-slider::-moz-range-thumb {
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 38% 35%, #fff 0%, #c8f0ff 60%, #80d0ff 100%);
-      border: none;
-      box-shadow: 0 0 0 3px rgba(0,200,255,0.25), 0 0 14px rgba(0,180,255,0.5), 0 2px 8px rgba(0,0,0,0.5);
-      cursor: grab;
+      transform: scale(1.12);
+      border-color: #7B61FF;
     }
     input[type="range"].calc-slider:hover::-webkit-slider-thumb {
-      box-shadow: 0 0 0 5px rgba(0,200,255,0.18), 0 0 18px rgba(0,180,255,0.6), 0 2px 12px rgba(0,0,0,0.6);
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
     input[type="range"].calc-slider:focus-visible::-webkit-slider-thumb {
-      box-shadow: 0 0 0 5px rgba(0,200,255,0.45), 0 0 22px rgba(0,180,255,0.7), 0 2px 12px rgba(0,0,0,0.6);
+      outline: 3px solid rgba(0,200,255,0.4);
+      outline-offset: 2px;
+    }
+    input[type="range"].calc-slider::-moz-range-track {
+      height: 6px;
+      border-radius: 6px;
+      background: linear-gradient(
+        to right,
+        #00C8FF 0%,
+        #7B61FF var(--pct, 30%),
+        rgba(255,255,255,0.08) var(--pct, 30%),
+        rgba(255,255,255,0.08) 100%
+      );
+    }
+    input[type="range"].calc-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2.5px solid #00C8FF;
+      box-shadow: none;
+      cursor: grab;
     }
 
     /* ── Right: Results ── */
@@ -2938,6 +2951,28 @@
     animateValue('result-hero', calcValues[period]);
   }
 
+  // Per-element animation frame handles so each number cancels its own previous tween
+  const animFrames = {};
+
+  function animateEl(id, target, duration, formatter) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (animFrames[id]) cancelAnimationFrame(animFrames[id]);
+    // Seed from stored value, or fall back to parsing the visible text
+    const start = parseFloat(el.dataset.numVal) ||
+                  parseFloat(el.textContent.replace(/[^0-9.]/g, '')) || 0;
+    const startTime = performance.now();
+    function step(now) {
+      const p    = Math.min((now - startTime) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);   // cubic ease-out
+      const val  = start + (target - start) * ease;
+      el.dataset.numVal = val;
+      el.textContent = formatter(Math.round(val));
+      if (p < 1) animFrames[id] = requestAnimationFrame(step);
+    }
+    animFrames[id] = requestAnimationFrame(step);
+  }
+
   function updateCalc() {
     const calls = parseInt(document.getElementById('slider-calls').value);
     const rate  = parseInt(document.getElementById('slider-rate').value);
@@ -2948,10 +2983,10 @@
       updateSliderFill(document.getElementById(id));
     });
 
-    // Update display labels
-    document.getElementById('val-calls').textContent = calls;
-    document.getElementById('val-rate').textContent  = rate + '%';
-    document.getElementById('val-price').textContent = '$' + price.toLocaleString();
+    // Animate slider label values
+    animateEl('val-calls', calls, 180, v => v);
+    animateEl('val-rate',  rate,  180, v => v + '%');
+    animateEl('val-price', price, 180, v => '$' + v.toLocaleString());
 
     // Calculations
     const dailyCust = calls * (rate / 100);
@@ -2962,39 +2997,20 @@
 
     calcValues = { daily, weekly, monthly, annually };
 
-    // Update hero big number for active period
-    animateValue('result-hero', calcValues[activePeriod]);
+    // Hero big number
+    animateEl('result-hero', calcValues[activePeriod], 350, formatHero);
 
-    // Update breakdown rows
-    document.getElementById('result-daily-cust').textContent =
-      dailyCust % 1 === 0 ? dailyCust : dailyCust.toFixed(1);
-    document.getElementById('result-daily').textContent   = formatCurrency(daily);
-    document.getElementById('result-weekly').textContent  = formatCurrency(weekly);
-    document.getElementById('result-monthly').textContent = formatCurrency(monthly);
-    document.getElementById('result-yearly').textContent  = formatCurrency(annually);
+    // Breakdown stats — short duration so they keep pace while dragging
+    const dcEl = document.getElementById('result-daily-cust');
+    if (dcEl) dcEl.textContent = dailyCust % 1 === 0 ? dailyCust : dailyCust.toFixed(1);
+    animateEl('result-daily',   daily,    200, formatCurrency);
+    animateEl('result-weekly',  weekly,   200, formatCurrency);
+    animateEl('result-monthly', monthly,  200, formatCurrency);
+    animateEl('result-yearly',  annually, 200, formatCurrency);
   }
 
-  let animFrame;
   function animateValue(id, target) {
-    const el = document.getElementById(id);
-    cancelAnimationFrame(animFrame);
-    // Parse back a plain number from the hero display (digits-only, may have K/M suffix)
-    const raw = el.textContent || '0';
-    let start = 0;
-    if (raw.includes('M'))      start = parseFloat(raw) * 1000000;
-    else if (raw.includes('K')) start = parseFloat(raw) * 1000;
-    else                        start = parseFloat(raw.replace(/[^0-9.]/g, '')) || 0;
-    const duration = 380;
-    const startTime = performance.now();
-    function step(now) {
-      const elapsed  = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease     = 1 - Math.pow(1 - progress, 3);
-      const current  = Math.round(start + (target - start) * ease);
-      el.textContent = formatHero(current);
-      if (progress < 1) animFrame = requestAnimationFrame(step);
-    }
-    animFrame = requestAnimationFrame(step);
+    animateEl(id, target, 350, formatHero);
   }
 
   // Init on load
