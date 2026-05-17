@@ -1569,7 +1569,7 @@
       object-fit: contain;
       transform-origin: 50% 50%;
       filter: drop-shadow(0 0 6px rgba(0,180,255,0.5)) drop-shadow(0 0 14px rgba(120,40,255,0.3));
-      transition: filter 0.25s;
+      transition: transform 0.65s cubic-bezier(0.4,0,0.2,1), filter 0.25s;
     }
     .hamburger:hover .orb-icon {
       filter: drop-shadow(0 0 10px rgba(0,220,255,0.8)) drop-shadow(0 0 20px rgba(120,40,255,0.5));
@@ -1577,13 +1577,6 @@
     @keyframes orb-spin {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
-    }
-    @keyframes orb-spin-half {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(180deg); }
-    }
-    .hamburger.spinning .orb-icon {
-      animation: orb-spin-half 0.65s cubic-bezier(0.4,0,0.2,1);
     }
 
     /* ─── ORB DROPDOWN PANEL ─── */
@@ -2819,6 +2812,8 @@
   const hamburger = document.getElementById('hamburger');
   const orbDropdown = document.getElementById('orb-dropdown');
   const navInnerEl = document.getElementById('nav-inner');
+  const orbIcon = hamburger.querySelector('.orb-icon');
+  let orbRotation = 0;
 
   // Start expanded on desktop, collapse into orb on scroll
   if (window.innerWidth > 768) {
@@ -2846,11 +2841,9 @@
       navInnerEl.classList.toggle('nav-open');
       orbDropdown.classList.remove('open');
     }
-    // Spin the orb icon on every click
-    hamburger.classList.remove('spinning');
-    void hamburger.offsetWidth;
-    hamburger.classList.add('spinning');
-    hamburger.addEventListener('animationend', () => hamburger.classList.remove('spinning'), { once: true });
+    // Spin the orb icon on every click — accumulate so it never snaps back
+    orbRotation += 180;
+    orbIcon.style.transform = `rotate(${orbRotation}deg)`;
   });
 
   // Close everything when clicking outside
