@@ -752,26 +752,84 @@
     /* ─── HOW IT WORKS ─── */
     /* ─── HOW IT WORKS ─── */
     .hiw-section { background: linear-gradient(180deg, transparent, rgba(10,10,18,0.6), transparent); }
-    .hiw-steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      position: relative;
-    }
-    .hiw-steps::before { display: none; }
 
+    /* ── Step Tab Buttons ── */
+    .hiw-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .hiw-tab {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--fg-muted);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+      outline: none;
+      white-space: nowrap;
+    }
+    .hiw-tab:hover {
+      border-color: rgba(0,200,255,0.3);
+      color: var(--fg);
+      background: rgba(0,200,255,0.06);
+    }
+    .hiw-tab.active {
+      border-color: rgba(0,200,255,0.5);
+      background: rgba(0,200,255,0.1);
+      color: var(--accent);
+      box-shadow: 0 0 20px rgba(0,200,255,0.15);
+    }
+    .hiw-tab-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(0,200,255,0.15);
+      border: 1px solid rgba(0,200,255,0.3);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s var(--ease);
+    }
+    .hiw-tab.active .hiw-tab-num {
+      background: var(--accent);
+      color: #000;
+    }
+
+    /* ── Card Display Area ── */
+    .hiw-steps {
+      position: relative;
+      max-width: 780px;
+      margin: 0 auto;
+    }
     .hiw-step {
       background: rgba(255,255,255,0.025);
       border: 1px solid var(--border);
       border-radius: 20px;
       overflow: hidden;
-      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
       text-align: left;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      pointer-events: none;
+      transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
     }
-    .hiw-step:hover {
-      border-color: rgba(0,200,255,0.22);
-      transform: translateY(-5px);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.35);
+    .hiw-step.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      position: relative;
     }
     .hiw-visual {
       height: 196px;
@@ -786,7 +844,7 @@
     }
     .hiw-visual-img {
       padding: 0;
-      height: 220px;
+      height: 340px;
     }
     .hiw-step-img {
       width: 100%;
@@ -1533,8 +1591,8 @@
       .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
       .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
       .industry-grid { grid-template-columns: repeat(3, 1fr); }
-      .hiw-steps { grid-template-columns: repeat(2, 1fr); }
-      .hiw-steps::before { display: none; }
+      .hiw-tabs { gap: 8px; }
+      .hiw-tab { padding: 10px 18px; font-size: 13px; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
 
@@ -1574,7 +1632,7 @@
       .metric-num { font-size: 36px; }
 
       /* How it works */
-      .hiw-steps { grid-template-columns: 1fr; gap: 40px; }
+      .hiw-tab { padding: 9px 14px; font-size: 12px; }
 
       /* Testimonials */
       .testimonials-grid { grid-template-columns: 1fr; }
@@ -2170,10 +2228,23 @@
       <h2 class="reveal reveal-delay-1">Live in <span class="gradient-text">Under 2 Weeks</span></h2>
       <p class="reveal reveal-delay-2">From first conversation to fully live — we handle everything. No engineers, no guesswork.</p>
     </div>
+    <!-- Step Tab Buttons -->
+    <div class="hiw-tabs" role="tablist">
+      <button class="hiw-tab active" onclick="showHiwStep(0)" role="tab" aria-selected="true">
+        <span class="hiw-tab-num">1</span> Discovery Call
+      </button>
+      <button class="hiw-tab" onclick="showHiwStep(1)" role="tab" aria-selected="false">
+        <span class="hiw-tab-num">2</span> Custom Build
+      </button>
+      <button class="hiw-tab" onclick="showHiwStep(2)" role="tab" aria-selected="false">
+        <span class="hiw-tab-num">3</span> Go Live
+      </button>
+    </div>
+
     <div class="hiw-steps">
 
       <!-- ── STEP 1: Discovery Call ── -->
-      <div class="hiw-step hiw-step-1 reveal">
+      <div class="hiw-step hiw-step-1 active">
         <div class="hiw-visual hiw-visual-img">
           <img src="Neo Setup 1.png" alt="Discovery Call" class="hiw-step-img" />
         </div>
@@ -2185,7 +2256,7 @@
       </div>
 
       <!-- ── STEP 2: Custom Build ── -->
-      <div class="hiw-step hiw-step-2 reveal reveal-delay-1">
+      <div class="hiw-step hiw-step-2">
         <div class="hiw-visual hiw-visual-img">
           <img src="Neo setup 2.png" alt="Custom Build" class="hiw-step-img" />
         </div>
@@ -2197,7 +2268,7 @@
       </div>
 
       <!-- ── STEP 3: Go Live ── -->
-      <div class="hiw-step hiw-step-3 reveal reveal-delay-2">
+      <div class="hiw-step hiw-step-3">
         <div class="hiw-visual hiw-visual-img">
           <img src="Neo set up 3.png" alt="Go Live" class="hiw-step-img" />
         </div>
@@ -2536,6 +2607,17 @@
 </footer>
 
 <script>
+  // How It Works tab switcher
+  function showHiwStep(index) {
+    const steps = document.querySelectorAll('.hiw-step');
+    const tabs  = document.querySelectorAll('.hiw-tab');
+    steps.forEach((s, i) => s.classList.toggle('active', i === index));
+    tabs.forEach((t, i) => {
+      t.classList.toggle('active', i === index);
+      t.setAttribute('aria-selected', i === index);
+    });
+  }
+
   // Nav scroll effect
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
