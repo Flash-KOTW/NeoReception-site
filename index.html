@@ -1547,67 +1547,114 @@
 
     /* ─── RESPONSIVE ─── */
     /* ─── HAMBURGER ─── */
+    /* ─── ORB NAV BUTTON ─── */
+    .orb-wrap {
+      position: relative;
+      z-index: 200;
+    }
     .hamburger {
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       padding: 4px;
       background: none;
       border: none;
-      z-index: 200;
     }
     .orb-icon {
       display: block;
       transform-origin: 50% 50%;
-      filter: drop-shadow(0 0 5px rgba(0,180,255,0.45));
+      filter: drop-shadow(0 0 6px rgba(0,180,255,0.5)) drop-shadow(0 0 14px rgba(120,40,255,0.3));
       transition: filter 0.25s;
     }
     .hamburger:hover .orb-icon {
-      filter: drop-shadow(0 0 10px rgba(0,200,255,0.75));
+      filter: drop-shadow(0 0 10px rgba(0,220,255,0.8)) drop-shadow(0 0 20px rgba(120,40,255,0.5));
     }
     @keyframes orb-spin {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
     }
     .hamburger.spinning .orb-icon {
-      animation: orb-spin 0.6s cubic-bezier(0.4,0,0.2,1);
+      animation: orb-spin 0.65s cubic-bezier(0.4,0,0.2,1);
     }
-    .footer-orb-wrap {
+
+    /* ─── ORB DROPDOWN PANEL ─── */
+    .orb-dropdown {
+      position: absolute;
+      top: calc(100% + 14px);
+      right: 0;
+      min-width: 215px;
+      background: rgba(2,6,30,0.97);
+      border: 1px solid rgba(0,160,255,0.28);
+      border-radius: 16px;
+      padding: 10px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.65), 0 0 30px rgba(0,100,255,0.1);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px) scale(0.97);
+      transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+    }
+    .orb-dropdown::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 20px; right: 20px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,200,255,0.65), transparent);
+    }
+    .orb-dropdown.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    .orb-dd-link {
       display: flex;
-      justify-content: flex-start;
-      margin-bottom: 20px;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: rgba(237,238,242,0.78);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.18s;
     }
+    .orb-dd-link:hover { background: rgba(0,160,255,0.08); color: #00C8FF; }
+    .orb-dd-link svg { opacity: 0.55; flex-shrink: 0; }
+    .orb-dd-divider {
+      height: 1px;
+      background: rgba(0,160,255,0.12);
+      margin: 8px 10px;
+    }
+    .orb-dd-cta {
+      display: block;
+      padding: 11px 14px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0,200,255,0.1), rgba(123,97,255,0.1));
+      border: 1px solid rgba(0,200,255,0.22);
+      color: #00C8FF;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.18s;
+      margin-top: 4px;
+    }
+    .orb-dd-cta:hover {
+      background: linear-gradient(135deg, rgba(0,200,255,0.18), rgba(123,97,255,0.18));
+      border-color: rgba(0,200,255,0.4);
+      color: #fff;
+    }
+
+    /* ─── FOOTER ORB ─── */
+    .footer-orb-wrap { display: flex; justify-content: flex-start; margin-bottom: 20px; }
     .footer-orb {
       display: block;
       transform-origin: 50% 50%;
-      filter: drop-shadow(0 0 8px rgba(0,140,255,0.4));
+      filter: drop-shadow(0 0 8px rgba(0,140,255,0.4)) drop-shadow(0 0 18px rgba(100,40,255,0.25));
       animation: orb-spin 28s linear infinite;
-      opacity: 0.82;
+      opacity: 0.85;
     }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(5,5,7,0.97);
-      backdrop-filter: blur(20px);
-      z-index: 150;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--fg);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .mobile-menu a:hover { color: var(--accent); }
-    .mobile-menu .btn { font-size: 16px; padding: 14px 32px; }
 
     @media (max-width: 1024px) {
       .features-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1624,7 +1671,6 @@
       /* Nav */
       nav .nav-links { display: none; }
       nav .nav-cta { display: none; }
-      .hamburger { display: flex; }
 
       /* Hero */
       .hero { padding: 120px 0 60px; }
@@ -2005,89 +2051,161 @@
           Book a Call
         </a>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Open menu">
-        <svg class="orb-icon" viewBox="0 0 100 100" width="34" height="34" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <filter id="no-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="2.2" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <radialGradient id="no-cg" cx="37%" cy="32%" r="68%">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="22%" stop-color="#a0e0ff"/>
-              <stop offset="55%" stop-color="#4060ee"/>
-              <stop offset="100%" stop-color="#18007a"/>
-            </radialGradient>
-            <radialGradient id="no-sg" cx="35%" cy="30%" r="68%">
-              <stop offset="0%" stop-color="#e0f0ff"/>
-              <stop offset="28%" stop-color="#70b0ff"/>
-              <stop offset="62%" stop-color="#6030cc"/>
-              <stop offset="100%" stop-color="#140060"/>
-            </radialGradient>
-            <linearGradient id="no-rg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stop-color="#00ccff" stop-opacity="0.9"/>
-              <stop offset="45%"  stop-color="#8840ff" stop-opacity="0.9"/>
-              <stop offset="100%" stop-color="#00aaff" stop-opacity="0.9"/>
-            </linearGradient>
-            <linearGradient id="no-sk" x1="50%" y1="0%" x2="50%" y2="100%">
-              <stop offset="0%"   stop-color="#4090ff" stop-opacity="0.65"/>
-              <stop offset="100%" stop-color="#7040ff" stop-opacity="0.65"/>
-            </linearGradient>
-          </defs>
-          <!-- Main ring -->
-          <circle cx="50" cy="50" r="30" stroke="url(#no-rg)" stroke-width="1.8" fill="none" filter="url(#no-glow)"/>
-          <!-- 8 Spokes -->
-          <line x1="50" y1="50" x2="50"   y2="20"   stroke="url(#no-sk)" stroke-width="1.2"/>
-          <line x1="50" y1="50" x2="71.2" y2="28.8" stroke="url(#no-sk)" stroke-width="1.2"/>
-          <line x1="50" y1="50" x2="80"   y2="50"   stroke="url(#no-sk)" stroke-width="1.2"/>
-          <line x1="50" y1="50" x2="71.2" y2="71.2" stroke="url(#no-sk)" stroke-width="1.2"/>
-          <line x1="50" y1="50" x2="50"   y2="80"   stroke="url(#no-sk)" stroke-width="1.2"/>
-          <line x1="50" y1="50" x2="28.8" y2="71.2" stroke="url(#no-sk)" stroke-width="1.2"/>
-          <line x1="50" y1="50" x2="20"   y2="50"   stroke="url(#no-sk)" stroke-width="1.2"/>
-          <line x1="50" y1="50" x2="28.8" y2="28.8" stroke="url(#no-sk)" stroke-width="1.2"/>
-          <!-- Satellite orbs (outer ring + fill + spark) -->
-          <circle cx="50"   cy="20"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
-          <circle cx="50"   cy="20"   r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
-          <circle cx="48.5" cy="18.5" r="1.8" fill="white" opacity="0.75"/>
-          <circle cx="71.2" cy="28.8" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
-          <circle cx="71.2" cy="28.8" r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
-          <circle cx="69.7" cy="27.3" r="1.8" fill="white" opacity="0.75"/>
-          <circle cx="80"   cy="50"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
-          <circle cx="80"   cy="50"   r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
-          <circle cx="78.5" cy="48.5" r="1.8" fill="white" opacity="0.75"/>
-          <circle cx="71.2" cy="71.2" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
-          <circle cx="71.2" cy="71.2" r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
-          <circle cx="69.7" cy="69.7" r="1.8" fill="white" opacity="0.75"/>
-          <circle cx="50"   cy="80"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
-          <circle cx="50"   cy="80"   r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
-          <circle cx="48.5" cy="78.5" r="1.8" fill="white" opacity="0.75"/>
-          <circle cx="28.8" cy="71.2" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
-          <circle cx="28.8" cy="71.2" r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
-          <circle cx="27.3" cy="69.7" r="1.8" fill="white" opacity="0.75"/>
-          <circle cx="20"   cy="50"   r="9"   fill="none" stroke="#00bbff" stroke-width="0.9" opacity="0.5"/>
-          <circle cx="20"   cy="50"   r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
-          <circle cx="18.5" cy="48.5" r="1.8" fill="white" opacity="0.75"/>
-          <circle cx="28.8" cy="28.8" r="9"   fill="none" stroke="#8840ff" stroke-width="0.9" opacity="0.5"/>
-          <circle cx="28.8" cy="28.8" r="7.5" fill="url(#no-sg)" filter="url(#no-glow)"/>
-          <circle cx="27.3" cy="27.3" r="1.8" fill="white" opacity="0.75"/>
-          <!-- Center orb -->
-          <circle cx="50" cy="50" r="12"   fill="none" stroke="#00ddff" stroke-width="1.2" opacity="0.7"/>
-          <circle cx="50" cy="50" r="10.5" fill="url(#no-cg)" filter="url(#no-glow)"/>
-          <circle cx="47.5" cy="47.5" r="2.8" fill="white" opacity="0.8"/>
-        </svg>
-      </button>
+      <div class="orb-wrap">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <!-- Plasma orb SVG — ring + spokes + satellite orbs with inner tendrils -->
+          <svg class="orb-icon" viewBox="0 0 100 100" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="no-glow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="2.8" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <filter id="no-glow-sm" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur stdDeviation="1.8" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <radialGradient id="no-cg" cx="38%" cy="33%" r="65%">
+                <stop offset="0%"   stop-color="#ffffff"/>
+                <stop offset="18%"  stop-color="#b0eeff"/>
+                <stop offset="50%"  stop-color="#3060ff"/>
+                <stop offset="100%" stop-color="#100060"/>
+              </radialGradient>
+              <radialGradient id="no-sg-b" cx="35%" cy="30%" r="65%">
+                <stop offset="0%"   stop-color="#ffffff"/>
+                <stop offset="20%"  stop-color="#80d0ff"/>
+                <stop offset="55%"  stop-color="#0040dd"/>
+                <stop offset="100%" stop-color="#080050"/>
+              </radialGradient>
+              <radialGradient id="no-sg-p" cx="35%" cy="30%" r="65%">
+                <stop offset="0%"   stop-color="#ffffff"/>
+                <stop offset="20%"  stop-color="#c090ff"/>
+                <stop offset="55%"  stop-color="#7700ee"/>
+                <stop offset="100%" stop-color="#100040"/>
+              </radialGradient>
+              <linearGradient id="no-rg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#00eeff"/>
+                <stop offset="50%"  stop-color="#aa00ff"/>
+                <stop offset="100%" stop-color="#00ccff"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Main ring (glowing) -->
+            <circle cx="50" cy="50" r="30" stroke="url(#no-rg)" stroke-width="2" fill="none" filter="url(#no-glow)"/>
+            <circle cx="50" cy="50" r="30" stroke="url(#no-rg)" stroke-width="0.6" fill="none" opacity="0.4"/>
+
+            <!-- 8 Spokes -->
+            <line x1="50" y1="40" x2="50"   y2="20"   stroke="#3388ff" stroke-width="1.1" opacity="0.7"/>
+            <line x1="57" y1="43" x2="71.2" y2="28.8" stroke="#7730ff" stroke-width="1.1" opacity="0.7"/>
+            <line x1="60" y1="50" x2="80"   y2="50"   stroke="#3388ff" stroke-width="1.1" opacity="0.7"/>
+            <line x1="57" y1="57" x2="71.2" y2="71.2" stroke="#7730ff" stroke-width="1.1" opacity="0.7"/>
+            <line x1="50" y1="60" x2="50"   y2="80"   stroke="#3388ff" stroke-width="1.1" opacity="0.7"/>
+            <line x1="43" y1="57" x2="28.8" y2="71.2" stroke="#7730ff" stroke-width="1.1" opacity="0.7"/>
+            <line x1="40" y1="50" x2="20"   y2="50"   stroke="#3388ff" stroke-width="1.1" opacity="0.7"/>
+            <line x1="43" y1="43" x2="28.8" y2="28.8" stroke="#7730ff" stroke-width="1.1" opacity="0.7"/>
+
+            <!-- Satellite orbs — alternating blue/purple with inner tendril pattern -->
+            <!-- N (50,20) blue -->
+            <circle cx="50" cy="20" r="9.5" fill="none" stroke="#00ddff" stroke-width="1" opacity="0.55" filter="url(#no-glow-sm)"/>
+            <circle cx="50" cy="20" r="8"   fill="url(#no-sg-b)" filter="url(#no-glow-sm)"/>
+            <ellipse cx="50" cy="20" rx="2.5" ry="5.5" fill="none" stroke="#00ffff" stroke-width="0.7" opacity="0.6" transform="rotate(0,50,20)"/>
+            <ellipse cx="50" cy="20" rx="2.5" ry="5.5" fill="none" stroke="#0088ff" stroke-width="0.7" opacity="0.5" transform="rotate(60,50,20)"/>
+            <ellipse cx="50" cy="20" rx="2.5" ry="5.5" fill="none" stroke="#00ccff" stroke-width="0.7" opacity="0.4" transform="rotate(120,50,20)"/>
+            <circle cx="48" cy="18" r="2.2" fill="white" opacity="0.9"/>
+
+            <!-- NE (71.2,28.8) purple -->
+            <circle cx="71.2" cy="28.8" r="9.5" fill="none" stroke="#cc44ff" stroke-width="1" opacity="0.55" filter="url(#no-glow-sm)"/>
+            <circle cx="71.2" cy="28.8" r="8"   fill="url(#no-sg-p)" filter="url(#no-glow-sm)"/>
+            <ellipse cx="71.2" cy="28.8" rx="2.5" ry="5.5" fill="none" stroke="#ff00ff" stroke-width="0.7" opacity="0.6" transform="rotate(0,71.2,28.8)"/>
+            <ellipse cx="71.2" cy="28.8" rx="2.5" ry="5.5" fill="none" stroke="#9900ff" stroke-width="0.7" opacity="0.5" transform="rotate(60,71.2,28.8)"/>
+            <ellipse cx="71.2" cy="28.8" rx="2.5" ry="5.5" fill="none" stroke="#cc44ff" stroke-width="0.7" opacity="0.4" transform="rotate(120,71.2,28.8)"/>
+            <circle cx="69.2" cy="26.8" r="2.2" fill="white" opacity="0.9"/>
+
+            <!-- E (80,50) blue -->
+            <circle cx="80" cy="50" r="9.5" fill="none" stroke="#00ddff" stroke-width="1" opacity="0.55" filter="url(#no-glow-sm)"/>
+            <circle cx="80" cy="50" r="8"   fill="url(#no-sg-b)" filter="url(#no-glow-sm)"/>
+            <ellipse cx="80" cy="50" rx="2.5" ry="5.5" fill="none" stroke="#00ffff" stroke-width="0.7" opacity="0.6" transform="rotate(0,80,50)"/>
+            <ellipse cx="80" cy="50" rx="2.5" ry="5.5" fill="none" stroke="#0088ff" stroke-width="0.7" opacity="0.5" transform="rotate(60,80,50)"/>
+            <ellipse cx="80" cy="50" rx="2.5" ry="5.5" fill="none" stroke="#00ccff" stroke-width="0.7" opacity="0.4" transform="rotate(120,80,50)"/>
+            <circle cx="78" cy="48" r="2.2" fill="white" opacity="0.9"/>
+
+            <!-- SE (71.2,71.2) purple -->
+            <circle cx="71.2" cy="71.2" r="9.5" fill="none" stroke="#cc44ff" stroke-width="1" opacity="0.55" filter="url(#no-glow-sm)"/>
+            <circle cx="71.2" cy="71.2" r="8"   fill="url(#no-sg-p)" filter="url(#no-glow-sm)"/>
+            <ellipse cx="71.2" cy="71.2" rx="2.5" ry="5.5" fill="none" stroke="#ff00ff" stroke-width="0.7" opacity="0.6" transform="rotate(0,71.2,71.2)"/>
+            <ellipse cx="71.2" cy="71.2" rx="2.5" ry="5.5" fill="none" stroke="#9900ff" stroke-width="0.7" opacity="0.5" transform="rotate(60,71.2,71.2)"/>
+            <ellipse cx="71.2" cy="71.2" rx="2.5" ry="5.5" fill="none" stroke="#cc44ff" stroke-width="0.7" opacity="0.4" transform="rotate(120,71.2,71.2)"/>
+            <circle cx="69.2" cy="69.2" r="2.2" fill="white" opacity="0.9"/>
+
+            <!-- S (50,80) blue -->
+            <circle cx="50" cy="80" r="9.5" fill="none" stroke="#00ddff" stroke-width="1" opacity="0.55" filter="url(#no-glow-sm)"/>
+            <circle cx="50" cy="80" r="8"   fill="url(#no-sg-b)" filter="url(#no-glow-sm)"/>
+            <ellipse cx="50" cy="80" rx="2.5" ry="5.5" fill="none" stroke="#00ffff" stroke-width="0.7" opacity="0.6" transform="rotate(0,50,80)"/>
+            <ellipse cx="50" cy="80" rx="2.5" ry="5.5" fill="none" stroke="#0088ff" stroke-width="0.7" opacity="0.5" transform="rotate(60,50,80)"/>
+            <ellipse cx="50" cy="80" rx="2.5" ry="5.5" fill="none" stroke="#00ccff" stroke-width="0.7" opacity="0.4" transform="rotate(120,50,80)"/>
+            <circle cx="48" cy="78" r="2.2" fill="white" opacity="0.9"/>
+
+            <!-- SW (28.8,71.2) purple -->
+            <circle cx="28.8" cy="71.2" r="9.5" fill="none" stroke="#cc44ff" stroke-width="1" opacity="0.55" filter="url(#no-glow-sm)"/>
+            <circle cx="28.8" cy="71.2" r="8"   fill="url(#no-sg-p)" filter="url(#no-glow-sm)"/>
+            <ellipse cx="28.8" cy="71.2" rx="2.5" ry="5.5" fill="none" stroke="#ff00ff" stroke-width="0.7" opacity="0.6" transform="rotate(0,28.8,71.2)"/>
+            <ellipse cx="28.8" cy="71.2" rx="2.5" ry="5.5" fill="none" stroke="#9900ff" stroke-width="0.7" opacity="0.5" transform="rotate(60,28.8,71.2)"/>
+            <ellipse cx="28.8" cy="71.2" rx="2.5" ry="5.5" fill="none" stroke="#cc44ff" stroke-width="0.7" opacity="0.4" transform="rotate(120,28.8,71.2)"/>
+            <circle cx="26.8" cy="69.2" r="2.2" fill="white" opacity="0.9"/>
+
+            <!-- W (20,50) blue -->
+            <circle cx="20" cy="50" r="9.5" fill="none" stroke="#00ddff" stroke-width="1" opacity="0.55" filter="url(#no-glow-sm)"/>
+            <circle cx="20" cy="50" r="8"   fill="url(#no-sg-b)" filter="url(#no-glow-sm)"/>
+            <ellipse cx="20" cy="50" rx="2.5" ry="5.5" fill="none" stroke="#00ffff" stroke-width="0.7" opacity="0.6" transform="rotate(0,20,50)"/>
+            <ellipse cx="20" cy="50" rx="2.5" ry="5.5" fill="none" stroke="#0088ff" stroke-width="0.7" opacity="0.5" transform="rotate(60,20,50)"/>
+            <ellipse cx="20" cy="50" rx="2.5" ry="5.5" fill="none" stroke="#00ccff" stroke-width="0.7" opacity="0.4" transform="rotate(120,20,50)"/>
+            <circle cx="18" cy="48" r="2.2" fill="white" opacity="0.9"/>
+
+            <!-- NW (28.8,28.8) purple -->
+            <circle cx="28.8" cy="28.8" r="9.5" fill="none" stroke="#cc44ff" stroke-width="1" opacity="0.55" filter="url(#no-glow-sm)"/>
+            <circle cx="28.8" cy="28.8" r="8"   fill="url(#no-sg-p)" filter="url(#no-glow-sm)"/>
+            <ellipse cx="28.8" cy="28.8" rx="2.5" ry="5.5" fill="none" stroke="#ff00ff" stroke-width="0.7" opacity="0.6" transform="rotate(0,28.8,28.8)"/>
+            <ellipse cx="28.8" cy="28.8" rx="2.5" ry="5.5" fill="none" stroke="#9900ff" stroke-width="0.7" opacity="0.5" transform="rotate(60,28.8,28.8)"/>
+            <ellipse cx="28.8" cy="28.8" rx="2.5" ry="5.5" fill="none" stroke="#cc44ff" stroke-width="0.7" opacity="0.4" transform="rotate(120,28.8,28.8)"/>
+            <circle cx="26.8" cy="26.8" r="2.2" fill="white" opacity="0.9"/>
+
+            <!-- Center orb (larger, more detail) -->
+            <circle cx="50" cy="50" r="13"   fill="none" stroke="#00eeff" stroke-width="1.5" opacity="0.6" filter="url(#no-glow)"/>
+            <circle cx="50" cy="50" r="11.5" fill="url(#no-cg)" filter="url(#no-glow)"/>
+            <ellipse cx="50" cy="50" rx="3.5" ry="8" fill="none" stroke="#00ffff" stroke-width="0.9" opacity="0.6" transform="rotate(0,50,50)"/>
+            <ellipse cx="50" cy="50" rx="3.5" ry="8" fill="none" stroke="#aa00ff" stroke-width="0.9" opacity="0.5" transform="rotate(60,50,50)"/>
+            <ellipse cx="50" cy="50" rx="3.5" ry="8" fill="none" stroke="#0088ff" stroke-width="0.9" opacity="0.4" transform="rotate(120,50,50)"/>
+            <circle cx="47" cy="47" r="3.2" fill="white" opacity="0.9"/>
+            <circle cx="53" cy="53" r="1.2" fill="rgba(0,200,255,0.5)"/>
+          </svg>
+        </button>
+
+        <!-- Dropdown panel -->
+        <div class="orb-dropdown" id="orb-dropdown">
+          <a href="#features" class="orb-dd-link" onclick="closeOrbMenu()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Features
+          </a>
+          <a href="#how-it-works" class="orb-dd-link" onclick="closeOrbMenu()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            How It Works
+          </a>
+          <a href="#faq" class="orb-dd-link" onclick="closeOrbMenu()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            FAQ
+          </a>
+          <div class="orb-dd-divider"></div>
+          <a href="tel:+15715829983" class="orb-dd-link" onclick="closeOrbMenu()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.28 2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.7 16z"/></svg>
+            Call Demo Agent
+          </a>
+          <a href="https://cal.com/flash-neoreception/30min" target="_blank" class="orb-dd-cta" onclick="closeOrbMenu()">
+            Book a Call →
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobile-menu">
-  <a href="#features" onclick="closeMobileMenu()">Features</a>
-  <a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a>
-  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
-  <a href="tel:+15715829983" class="btn btn-primary">Call Our Demo Agent</a>
-  <a href="https://cal.com/flash-neoreception/30min" target="_blank" class="btn btn-ghost" onclick="closeMobileMenu()">Book a Call</a>
-</div>
 
 <!-- HERO -->
 <section class="hero" aria-label="Hero">
@@ -2841,28 +2959,34 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 
-  // ── Hamburger menu
+  // ── Orb dropdown menu
   const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const orbDropdown = document.getElementById('orb-dropdown');
 
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    orbDropdown.classList.toggle('open');
     // Spin the orb icon on every click
-    const icon = hamburger.querySelector('.orb-icon');
-    if (icon) {
-      hamburger.classList.remove('spinning');
-      void hamburger.offsetWidth; // force reflow to restart animation
-      hamburger.classList.add('spinning');
-      hamburger.addEventListener('animationend', () => hamburger.classList.remove('spinning'), { once: true });
+    hamburger.classList.remove('spinning');
+    void hamburger.offsetWidth; // force reflow to restart animation
+    hamburger.classList.add('spinning');
+    hamburger.addEventListener('animationend', () => hamburger.classList.remove('spinning'), { once: true });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !orbDropdown.contains(e.target)) {
+      orbDropdown.classList.remove('open');
     }
   });
 
-  function closeMobileMenu() {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-    document.body.style.overflow = '';
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') orbDropdown.classList.remove('open');
+  });
+
+  function closeOrbMenu() {
+    orbDropdown.classList.remove('open');
   }
 
   // Smooth anchor scroll
