@@ -182,9 +182,10 @@
     .blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(120px);
+      filter: blur(70px);
       opacity: 0.08;
       animation: float 20s ease-in-out infinite;
+      will-change: transform;
     }
     .blob-1 { width: 600px; height: 600px; background: var(--accent);   top: -200px; left: -100px; animation-duration: 22s; }
     .blob-2 { width: 500px; height: 500px; background: var(--accent-2); bottom: -150px; right: -100px; animation-duration: 18s; animation-delay: -7s; }
@@ -282,8 +283,8 @@
       z-index: 100;
       padding: 16px 0;
       background: rgba(3,3,6,0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       transition: all 0.4s var(--ease);
     }
     nav.scrolled {
@@ -467,6 +468,7 @@
       background: radial-gradient(circle, rgba(0,70,220,0.42) 0%, rgba(0,50,180,0.22) 35%, rgba(0,30,140,0.07) 65%, transparent 80%);
       filter: blur(40px);
       animation: pulse-orb 7s ease-in-out infinite;
+      will-change: transform, opacity;
     }
     /* ─── CENTER DOT ─── */
     .orb {
@@ -492,14 +494,13 @@
       position: absolute;
       border-radius: 50%;
       border: 1px solid rgba(50,110,255,0.22);
+      will-change: transform;
     }
     .r1 { width:  90px; height:  90px; animation: spin 60s  linear infinite;         border-color: rgba(56,189,248,0.28); }
     .r2 { width: 170px; height: 170px; animation: spin 90s  linear infinite reverse; border-color: rgba(50,150,255,0.22); }
     .r3 { width: 250px; height: 250px; animation: spin 120s linear infinite;         border-color: rgba(45,130,255,0.19); }
     .r4 { width: 330px; height: 330px; animation: spin 100s linear infinite reverse; border-color: rgba(40,110,255,0.15); }
     .r5 { width: 410px; height: 410px; animation: spin 140s linear infinite;         border-color: rgba(35, 92,230,0.12); }
-    .r6 { width: 490px; height: 490px; animation: spin 115s linear infinite reverse; border-color: rgba(28, 76,210,0.09); }
-    .r7 { width: 575px; height: 575px; animation: spin 170s linear infinite;         border-color: rgba(22, 60,190,0.07); }
 
     /* ─── GLOW DOTS ─── */
     .orb-dot {
@@ -517,10 +518,6 @@
     .d4  { width: 6px; height: 6px; top:calc(50% -  35px); left:calc(50% +  95px); animation-delay:2.0s; }
     .d5  { width: 6px; height: 6px; top:calc(50% +  60px); left:calc(50% + 110px); animation-delay:0.4s; }
     .d6  { width: 7px; height: 7px; top:calc(50% + 155px); left:calc(50% - 120px); animation-delay:1.7s; }
-    .d7  { width: 5px; height: 5px; top:calc(50% + 105px); left:calc(50% + 195px); animation-delay:0.9s; }
-    .d8  { width: 7px; height: 7px; top:calc(50% + 255px); left:calc(50% -  25px); animation-delay:2.5s; }
-    .d9  { width: 6px; height: 6px; top:calc(50% + 215px); left:calc(50% + 165px); animation-delay:1.1s; }
-    .d10 { width: 5px; height: 5px; top:calc(50% +  20px); left:calc(50% + 255px); animation-delay:3.1s; }
     @keyframes dot-pulse {
       0%,100% { opacity: 0.55; transform: scale(1); }
       50%      { opacity: 1;   transform: scale(1.5); }
@@ -534,12 +531,13 @@
       border-radius: 32px;
       background: linear-gradient(145deg, rgba(0,200,255,0.2), rgba(123,97,255,0.2));
       border: 1px solid rgba(0,200,255,0.3);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(12px);
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 60px rgba(0,200,255,0.25), 0 0 120px rgba(123,97,255,0.15);
       animation: breathe 3s ease-in-out infinite;
+      will-change: transform;
     }
     @keyframes breathe {
       0%,100% { box-shadow: 0 0 60px rgba(0,200,255,0.25), 0 0 120px rgba(123,97,255,0.15); }
@@ -552,8 +550,8 @@
       background: linear-gradient(135deg, rgba(4,6,22,0.96) 0%, rgba(6,8,28,0.94) 100%);
       border: 1px solid rgba(0,120,255,0.45);
       border-radius: 14px;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       padding: 13px 17px;
       font-size: 13px;
       white-space: nowrap;
@@ -1589,8 +1587,8 @@
       border: 1px solid rgba(0,160,255,0.28);
       border-radius: 16px;
       padding: 10px;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       box-shadow: 0 16px 50px rgba(0,0,0,0.65), 0 0 30px rgba(0,100,255,0.1);
       opacity: 0;
       pointer-events: none;
@@ -1765,8 +1763,14 @@
       .btn { font-size: 14px; padding: 12px 20px; }
     }
 
+    /* ── Respect reduced-motion preference ── */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      #site-bg-canvas { display: none; }
     }
 
     /* ─── REVENUE CALCULATOR ─── */
@@ -2203,8 +2207,6 @@
         <div class="orb-ring r3"></div>
         <div class="orb-ring r4"></div>
         <div class="orb-ring r5"></div>
-        <div class="orb-ring r6"></div>
-        <div class="orb-ring r7"></div>
         <div class="orb"></div>
         <div class="orb-dot w d1"></div>
         <div class="orb-dot p d2"></div>
@@ -2212,10 +2214,6 @@
         <div class="orb-dot c d4"></div>
         <div class="orb-dot p d5"></div>
         <div class="orb-dot c d6"></div>
-        <div class="orb-dot c d7"></div>
-        <div class="orb-dot c d8"></div>
-        <div class="orb-dot p d9"></div>
-        <div class="orb-dot c d10"></div>
         <!-- Floating cards -->
         <div class="float-card fc-call">
           <div class="fc-header">
@@ -3078,19 +3076,41 @@
     const canvas = document.getElementById('site-bg-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    let W, H;
-    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    let W, H, offscreen, offCtx;
+
+    // Pre-render stars once to an offscreen canvas
+    function buildStars() {
+      offscreen = document.createElement('canvas');
+      offscreen.width  = W;
+      offscreen.height = H;
+      offCtx = offscreen.getContext('2d');
+      const stars = Array.from({ length: 70 }, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        r: Math.random() * 1.0 + 0.2,
+        a: Math.random() * 0.30 + 0.06,
+      }));
+      stars.forEach(s => {
+        offCtx.beginPath();
+        offCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        offCtx.fillStyle = `rgba(170,210,255,${s.a})`;
+        offCtx.fill();
+      });
+    }
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      buildStars(); // rebuild star canvas on resize
+    }
     resize();
-    window.addEventListener('resize', resize, { passive: true });
 
-    // Stars
-    const stars = Array.from({ length: 110 }, () => ({
-      x: Math.random(), y: Math.random(),
-      r: Math.random() * 1.0 + 0.2,
-      a: Math.random() * 0.35 + 0.08,
-    }));
+    // Debounce resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 200);
+    }, { passive: true });
 
-    // Wide diagonal light beams
     const beams = [
       { xFrac: 0.18, speed: 0.38, w: 380, rgb: [70, 35, 210], baseA: 0.11 },
       { xFrac: 0.52, speed: 0.22, w: 260, rgb: [0, 110, 255], baseA: 0.08 },
@@ -3098,8 +3118,19 @@
     ];
 
     let t = 0;
-    function frame() {
-      t += 0.004;
+    let lastFrameTime = 0;
+    const TARGET_FPS = 24;
+    const FRAME_MS   = 1000 / TARGET_FPS;
+    let rafId;
+
+    function frame(now) {
+      rafId = requestAnimationFrame(frame);
+      if (document.hidden) return; // pause when tab not visible
+      const delta = now - lastFrameTime;
+      if (delta < FRAME_MS) return; // throttle to ~24fps
+      lastFrameTime = now - (delta % FRAME_MS);
+
+      t += 0.006; // slightly faster tick since we run at 24fps
       ctx.clearRect(0, 0, W, H);
 
       beams.forEach((b, i) => {
@@ -3107,26 +3138,21 @@
         const a = b.baseA + Math.sin(t * b.speed * 1.4 + i) * 0.025;
         ctx.save();
         ctx.translate(x, H * 0.5);
-        ctx.rotate(-0.64); // ~-37°
-        const grad = ctx.createLinearGradient(-b.w, 0, b.w, 0);
+        ctx.rotate(-0.64);
         const [r, g, bl] = b.rgb;
-        grad.addColorStop(0, `rgba(${r},${g},${bl},0)`);
-        grad.addColorStop(0.5, `rgba(${r},${g},${bl},${a})`);
-        grad.addColorStop(1, `rgba(${r},${g},${bl},0)`);
+        const grad = ctx.createLinearGradient(-b.w, 0, b.w, 0);
+        grad.addColorStop(0,   `rgba(${r},${g},${bl},0)`);
+        grad.addColorStop(0.5, `rgba(${r},${g},${bl},${a.toFixed(3)})`);
+        grad.addColorStop(1,   `rgba(${r},${g},${bl},0)`);
         ctx.fillStyle = grad;
         ctx.fillRect(-b.w, -H * 2, b.w * 2, H * 4);
         ctx.restore();
       });
 
-      stars.forEach(s => {
-        ctx.beginPath();
-        ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(170,210,255,${s.a})`;
-        ctx.fill();
-      });
-
-      requestAnimationFrame(frame);
+      // Stamp pre-rendered stars
+      ctx.drawImage(offscreen, 0, 0);
     }
+
     requestAnimationFrame(frame);
   })();
 </script>
